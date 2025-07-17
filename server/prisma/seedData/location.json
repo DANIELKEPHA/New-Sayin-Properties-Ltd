@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "country": "Kenya",
+    "city": "Nairobi",
+    "state": "Nairobi County",
+    "address": "123 Kenyatta Ave",
+    "postalCode": "00100",
+    "coordinates": "POINT(36.8219 -1.2921)"
+  },
+  {
+    "id": 2,
+    "country": "Kenya",
+    "city": "Mombasa",
+    "state": "Mombasa County",
+    "address": "456 Moi Ave",
+    "postalCode": "80100",
+    "coordinates": "POINT(39.6682 -4.0435)"
+  },
+  {
+    "id": 3,
+    "country": "Kenya",
+    "city": "Kisumu",
+    "state": "Kisumu County",
+    "address": "789 Oginga Odinga Rd",
+    "postalCode": "40100",
+    "coordinates": "POINT(34.7594 -0.1022)"
+  },
+  {
+    "id": 4,
+    "country": "Kenya",
+    "city": "Nakuru",
+    "state": "Nakuru County",
+    "address": "101 Kenyatta Ave",
+    "postalCode": "20100",
+    "coordinates": "POINT(36.0600 -0.3031)"
+  },
+  {
+    "id": 5,
+    "country": "Kenya",
+    "city": "Eldoret",
+    "state": "Uasin Gishu County",
+    "address": "555 Uganda Rd",
+    "postalCode": "30100",
+    "coordinates": "POINT(35.2759 0.5143)"
+  },
+  {
+    "id": 6,
+    "country": "Kenya",
+    "city": "Thika",
+    "state": "Kiambu County",
+    "address": "888 Thika Superhighway",
+    "postalCode": "01000",
+    "coordinates": "POINT(37.0707 -1.0333)"
+  },
+  {
+    "id": 7,
+    "country": "Kenya",
+    "city": "Nyeri",
+    "state": "Nyeri County",
+    "address": "777 Kimathi Way",
+    "postalCode": "10100",
+    "coordinates": "POINT(36.9500 -0.4167)"
+  },
+  {
+    "id": 8,
+    "country": "Kenya",
+    "city": "Meru",
+    "state": "Meru County",
+    "address": "555 Makutano Junction",
+    "postalCode": "60200",
+    "coordinates": "POINT(37.6500 0.0500)"
+  },
+  {
+    "id": 9,
+    "country": "Kenya",
+    "city": "Malindi",
+    "state": "Kilifi County",
+    "address": "1234 Lamu Rd",
+    "postalCode": "80200",
+    "coordinates": "POINT(40.1169 -3.2189)"
+  },
+  {
+    "id": 10,
+    "country": "Kenya",
+    "city": "Kitale",
+    "state": "Trans Nzoia County",
+    "address": "789 Elgon Rd",
+    "postalCode": "30200",
+    "coordinates": "POINT(34.9950 1.0157)"
+  }
+]
