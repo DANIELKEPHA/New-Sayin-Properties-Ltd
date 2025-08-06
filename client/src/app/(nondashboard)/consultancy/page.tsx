@@ -17,7 +17,7 @@ const ConsultancyPage = () => {
                 <BreadCrumb
                     items={[
                         { label: 'Home', href: '/' },
-                        { label: 'Land', href: '/consultancy' },
+                        { label: 'Consultancy', href: '/consultancy' },
 
                     ]}
                 />

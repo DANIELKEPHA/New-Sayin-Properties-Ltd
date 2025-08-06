@@ -15,7 +15,7 @@ const SearchPage = () => {
             <main className="flex flex-col flex-1">
                 <BreadCrumb
                     items={[
-                        { label: 'Black Gold Africa', href: '/' },
+                        { label: 'Home', href: '/' },
                         { label: 'About us', href: '/about' },
 
                     ]}

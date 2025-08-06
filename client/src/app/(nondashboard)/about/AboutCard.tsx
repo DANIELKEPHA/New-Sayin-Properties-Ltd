@@ -1,73 +1,74 @@
 import React from 'react';
-import Image from 'next/image'; // Import Image component from next/image
+import Image from 'next/image';
 
 const teas = [
     {
-        name: 'Company Overview',
-        bgColor: 'bg-green-500',
+        name: 'About Us',
+        bgColor: 'bg-gradient-to-br from-rose-100 to-rose-50',
+        textColor: 'text-rose-900',
+        accentColor: 'text-rose-600',
         description: (
             <>
-                <p className="text-lg leading-relaxed">
-                    Black Gold Africa Traders Ltd. was founded by <strong className="text-green-800">Inayat Ali</strong>, a tea visionary with a mission to showcase the exceptional quality of Kenyan tea on the global stage. With years of hands-on experience in the industry, Inayat recognized Kenya’s unique potential as one of the world’s leading tea producers, known for its vibrant, full-bodied teas with unmatched flavor and health benefits.
+                <p className="mb-6 text-lg leading-relaxed">
+                    <strong className="font-bold">Sayin Properties Limited</strong> is a dynamic real estate and property firm offering a unique and unmatched value proposition across all core services essential to the success of any real estate venture.
+                </p>
+                <p className="mb-6 text-lg leading-relaxed">
+                    We specialize in property consultancy—whether for sale or development—with a mission to deliver exceptional services that drive real estate success across Kenya. As the demand for quality housing continues to rise, we are actively involved in property development to meet this growing need.
+                </p>
+                <p className="mb-6 text-lg leading-relaxed">
+                    Our development portfolio spans the entire property lifecycle—from land acquisition and construction of facilities to selling or leasing completed developments—all tailored to meet our clients&#39; needs.
                 </p>
                 <p className="text-lg leading-relaxed">
-                    Black Gold Africa Traders specializes in exporting premium teas sourced from Kenyas renowned tea-growing regions. The company collaborates closely with key industry partners, including the East African Tea Trade Association (EATTA), the Tea Board of Kenya, and regional factories representing farmers and other stakeholders. As global demand for high-quality Kenyan tea grew, Black Gold Traders steadily emerged as a prominent player in the export market. Their unwavering commitment to delivering exceptional teas while promoting wellness is reflected in their dedication to organic practices, ensuring that every cup offers both a rich flavor and health-conscious benefits.
+                    Sayin Properties also has a team of <strong className="font-bold">registered and qualified valuers</strong> who offer professional valuation services for a variety of real estate needs. Whether for sale, insurance, mortgage, or estate planning purposes, our valuation process is thorough—from initial instruction and site inspection to document verification and submission of a comprehensive Property Valuation Report.
                 </p>
             </>
         ),
-        image: '/image1.png',
+        image: '/about-sayin.jpg',
     },
     {
-        name: 'Our Journey',
-        bgColor: 'bg-yellow-500',
+        name: 'The Company',
+        bgColor: 'bg-gradient-to-br from-blue-50 to-blue-100',
+        textColor: 'text-blue-900',
+        accentColor: 'text-blue-600',
         description: (
             <>
-                <p className="mb-4 text-lg leading-relaxed">
-                    Black Gold Africa Traders stays ahead of market trends by embracing innovation and technology. With a state-of-the-art lab ensuring quality and safety, and advanced packaging and digital solutions enhancing efficiency, the company sets new standards in the tea industry.
+                <p className="mb-6 text-lg leading-relaxed">
+                    At <strong className="font-bold">Sayin Properties Limited</strong>, we&#39;re building a full-spectrum property group that covers all aspects of real estate—from leasing and sales to development, construction, and business transactions.
+                </p>
+                <p className="mb-6 text-lg leading-relaxed">
+                    In today&#39;s evolving property market—now a billion-dollar industry—making informed decisions requires detailed market knowledge and timely, accurate insights. Our experienced team brings the dedication and market expertise necessary to navigate these complexities and support both property owners and buyers.
+                </p>
+                <p className="mb-6 text-lg leading-relaxed">
+                    We invest in ongoing training across departments and maintain strong leadership in every division to ensure that our team&#39;s knowledge and skills remain sharp and current. This commitment has driven our expansion into business sales and project development, particularly in urban areas where our services continue to grow.
                 </p>
                 <p className="text-lg leading-relaxed">
-                    From the start, Black Gold Africa Traders has stood out for its commitment to community empowerment—supporting education, healthcare, and sustainable farming. This holistic approach uplifts local communities, preserves the environment, and strengthens the tea industrys foundation.
-                </p>
-                <p className="text-lg leading-relaxed">
-                   We are a leading exporter of Kenyan tea, known globally for its commitment to quality, innovation, and social responsibility. As demand for natural and organic products grows, the company remains dedicated to delivering health-boosting teas rooted in respect for the land, farmers, and communities behind every leaf.
+                    As the industry moves increasingly toward <strong className="font-bold">mixed-use developments</strong>, we are uniquely positioned to offer complete solutions—spanning residential and commercial sales, leasing, and feasibility analysis—delivering smooth, end-to-end outcomes for our clients.
                 </p>
             </>
         ),
-        image: '/image2.png',
+        image: '/the-company.png',
     },
-    {
-        name: 'Leadership',
-        bgColor: 'bg-orange-500',
-        description: (
-            <>
-                <p className="text-green-700 font-medium mb-4">Founder & Managing Director</p>
-                <p className="mb-4 text-lg leading-relaxed">
-                    Mr.Inayat Ali’s professional journey in the tea industry began in the fields of Kenya, where he learned firsthand about the intricacies of tea testing and blending and sourcing and the art of producing high-quality tea.
-                </p>
-                <p className="text-lg leading-relaxed">
-                    Through dedication and innovation, he grew Black Gold Traders into a globally recognized brand. Mr. Inayats expertise lies in tea sourcing, international trade, and establishing strong partnerships that benefit both the company and the Tea stake Holders at large.
-                </p>
-            </>
-        ),
-        image: '/image3.png',
-    },
-
 ];
 
 const AboutCard = () => {
     return (
-        <div className="text-gray-800 font-sans">
-            <section className="w-full">
+        <div className="font-sans antialiased">
+            <section className="w-full overflow-hidden">
                 {teas.map((tea, index) => (
                     <div
                         key={index}
-                        className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} w-full ${tea.bgColor}`}
+                        className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} w-full ${tea.bgColor} ${tea.textColor}`}
                     >
                         {/* Content */}
                         <div className="lg:w-1/2 w-full">
                             <div className="container mx-auto px-6 py-16 lg:py-24 max-w-2xl">
-                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">{tea.name}</h2>
-                                <div className="text-lg leading-relaxed space-y-4">
+                                <div className="relative">
+                                    <h2 className="text-4xl md:text-5xl font-bold mb-8 relative inline-block">
+                                        <span className="relative z-10">{tea.name}</span>
+                                        <span className={`absolute bottom-1 left-0 w-full h-3 ${index % 2 === 0 ? 'bg-rose-200' : 'bg-blue-200'} -z-0 opacity-80`}></span>
+                                    </h2>
+                                </div>
+                                <div className="space-y-6">
                                     {tea.description}
                                 </div>
                             </div>
@@ -75,16 +76,17 @@ const AboutCard = () => {
 
                         {/* Image */}
                         <div className="lg:w-1/2 w-full relative">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent z-10"></div>
                             <Image
                                 src={tea.image}
                                 alt={tea.name}
-                                width={600} // Specify width (adjust based on your design)
-                                height={600} // Specify height (adjust based on your design)
-                                className="w-full h-full max-h-[600px] object-cover"
+                                width={800}
+                                height={800}
+                                className="w-full h-full min-h-[400px] max-h-[800px] object-cover object-center"
                                 onError={(e) => {
                                     e.currentTarget.src = '/tea-placeholder.jpg';
                                 }}
-                                priority={index === 0} // Optional: Prioritize loading for the first image
+                                priority={index === 0}
                             />
                         </div>
                     </div>
