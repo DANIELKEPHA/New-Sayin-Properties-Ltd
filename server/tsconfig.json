@@ -20,5 +20,7 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*"]
+  "include": ["src/**/*", "src/data/**/*.json",
+    "src/prisma/**/*"
+  ]
 }
