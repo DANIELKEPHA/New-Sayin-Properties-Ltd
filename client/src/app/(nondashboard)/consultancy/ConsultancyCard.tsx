@@ -13,7 +13,7 @@ const services = [
                         <strong>Sayin&apos;s Real Estate Consultants</strong> provide expert guidance across all phases of the property lifecycle — from acquisition to portfolio management.
                     </p>
                     <p className="text-lg leading-relaxed">
-                        We identify strategic opportunities and implement research-backed solutions for Kenya's dynamic real estate market.
+                        We identify strategic opportunities and implement research-backed solutions for Kenya&#39;s dynamic real estate market.
                     </p>
                 </div>
 

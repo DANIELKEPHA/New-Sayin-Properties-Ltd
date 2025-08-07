@@ -11,7 +11,11 @@ import Card from "@/components/Card";
 import CardCompact from "@/components/CardCompact";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle } from "lucide-react";
-import {Alert} from "@aws-amplify/ui-react";
+import {
+  Alert,
+  AlertTitle,
+  AlertDescription,
+} from "@/components/ui/alert";
 
 const Listings = () => {
   const { data: authUser } = useGetAuthUserQuery();
