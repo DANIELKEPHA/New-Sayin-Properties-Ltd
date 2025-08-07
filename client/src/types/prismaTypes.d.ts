@@ -4507,7 +4507,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber: string | null
     _count: TenantCountAggregateOutputType | null
     _avg: TenantAvgAggregateOutputType | null
     _sum: TenantSumAggregateOutputType | null
@@ -4593,7 +4593,7 @@ export namespace Prisma {
       cognitoId: string
       name: string
       email: string
-      phoneNumber: string
+      phoneNumber: string | null
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -10053,8 +10053,8 @@ export namespace Prisma {
     id: number | null
     name: string | null
     email: string | null
-    subject: string | null
     message: string | null
+    interests: string | null
     privacyConsent: boolean | null
     tenantCognitoId: string | null
     createdAt: Date | null
@@ -10064,8 +10064,8 @@ export namespace Prisma {
     id: number | null
     name: string | null
     email: string | null
-    subject: string | null
     message: string | null
+    interests: string | null
     privacyConsent: boolean | null
     tenantCognitoId: string | null
     createdAt: Date | null
@@ -10075,8 +10075,8 @@ export namespace Prisma {
     id: number
     name: number
     email: number
-    subject: number
     message: number
+    interests: number
     privacyConsent: number
     tenantCognitoId: number
     createdAt: number
@@ -10096,8 +10096,8 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
-    subject?: true
     message?: true
+    interests?: true
     privacyConsent?: true
     tenantCognitoId?: true
     createdAt?: true
@@ -10107,8 +10107,8 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
-    subject?: true
     message?: true
+    interests?: true
     privacyConsent?: true
     tenantCognitoId?: true
     createdAt?: true
@@ -10118,8 +10118,8 @@ export namespace Prisma {
     id?: true
     name?: true
     email?: true
-    subject?: true
     message?: true
+    interests?: true
     privacyConsent?: true
     tenantCognitoId?: true
     createdAt?: true
@@ -10216,8 +10216,8 @@ export namespace Prisma {
     id: number
     name: string
     email: string
-    subject: string | null
-    message: string
+    message: string | null
+    interests: string | null
     privacyConsent: boolean
     tenantCognitoId: string | null
     createdAt: Date
@@ -10246,8 +10246,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    subject?: boolean
     message?: boolean
+    interests?: boolean
     privacyConsent?: boolean
     tenantCognitoId?: boolean
     createdAt?: boolean
@@ -10258,8 +10258,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    subject?: boolean
     message?: boolean
+    interests?: boolean
     privacyConsent?: boolean
     tenantCognitoId?: boolean
     createdAt?: boolean
@@ -10270,8 +10270,8 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    subject?: boolean
     message?: boolean
+    interests?: boolean
     privacyConsent?: boolean
     tenantCognitoId?: boolean
     createdAt?: boolean
@@ -10282,14 +10282,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     email?: boolean
-    subject?: boolean
     message?: boolean
+    interests?: boolean
     privacyConsent?: boolean
     tenantCognitoId?: boolean
     createdAt?: boolean
   }
 
-  export type ContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "subject" | "message" | "privacyConsent" | "tenantCognitoId" | "createdAt", ExtArgs["result"]["contact"]>
+  export type ContactOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "message" | "interests" | "privacyConsent" | "tenantCognitoId" | "createdAt", ExtArgs["result"]["contact"]>
   export type ContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | Contact$tenantArgs<ExtArgs>
   }
@@ -10309,8 +10309,8 @@ export namespace Prisma {
       id: number
       name: string
       email: string
-      subject: string | null
-      message: string
+      message: string | null
+      interests: string | null
       privacyConsent: boolean
       tenantCognitoId: string | null
       createdAt: Date
@@ -10741,8 +10741,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Contact", 'Int'>
     readonly name: FieldRef<"Contact", 'String'>
     readonly email: FieldRef<"Contact", 'String'>
-    readonly subject: FieldRef<"Contact", 'String'>
     readonly message: FieldRef<"Contact", 'String'>
+    readonly interests: FieldRef<"Contact", 'String'>
     readonly privacyConsent: FieldRef<"Contact", 'Boolean'>
     readonly tenantCognitoId: FieldRef<"Contact", 'String'>
     readonly createdAt: FieldRef<"Contact", 'DateTime'>
@@ -11299,8 +11299,8 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     email: 'email',
-    subject: 'subject',
     message: 'message',
+    interests: 'interests',
     privacyConsent: 'privacyConsent',
     tenantCognitoId: 'tenantCognitoId',
     createdAt: 'createdAt'
@@ -11686,7 +11686,7 @@ export namespace Prisma {
     cognitoId?: StringFilter<"Tenant"> | string
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
-    phoneNumber?: StringFilter<"Tenant"> | string
+    phoneNumber?: StringNullableFilter<"Tenant"> | string | null
     properties?: PropertyListRelationFilter
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
@@ -11699,7 +11699,7 @@ export namespace Prisma {
     cognitoId?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    phoneNumber?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     properties?: PropertyOrderByRelationAggregateInput
     favorites?: PropertyOrderByRelationAggregateInput
     applications?: ApplicationOrderByRelationAggregateInput
@@ -11715,7 +11715,7 @@ export namespace Prisma {
     NOT?: TenantWhereInput | TenantWhereInput[]
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
-    phoneNumber?: StringFilter<"Tenant"> | string
+    phoneNumber?: StringNullableFilter<"Tenant"> | string | null
     properties?: PropertyListRelationFilter
     favorites?: PropertyListRelationFilter
     applications?: ApplicationListRelationFilter
@@ -11728,7 +11728,7 @@ export namespace Prisma {
     cognitoId?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    phoneNumber?: SortOrder
+    phoneNumber?: SortOrderInput | SortOrder
     _count?: TenantCountOrderByAggregateInput
     _avg?: TenantAvgOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
@@ -11744,7 +11744,7 @@ export namespace Prisma {
     cognitoId?: StringWithAggregatesFilter<"Tenant"> | string
     name?: StringWithAggregatesFilter<"Tenant"> | string
     email?: StringWithAggregatesFilter<"Tenant"> | string
-    phoneNumber?: StringWithAggregatesFilter<"Tenant"> | string
+    phoneNumber?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
   }
 
   export type LocationWhereInput = {
@@ -12047,8 +12047,8 @@ export namespace Prisma {
     id?: IntFilter<"Contact"> | number
     name?: StringFilter<"Contact"> | string
     email?: StringFilter<"Contact"> | string
-    subject?: StringNullableFilter<"Contact"> | string | null
-    message?: StringFilter<"Contact"> | string
+    message?: StringNullableFilter<"Contact"> | string | null
+    interests?: StringNullableFilter<"Contact"> | string | null
     privacyConsent?: BoolFilter<"Contact"> | boolean
     tenantCognitoId?: StringNullableFilter<"Contact"> | string | null
     createdAt?: DateTimeFilter<"Contact"> | Date | string
@@ -12059,8 +12059,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    subject?: SortOrderInput | SortOrder
-    message?: SortOrder
+    message?: SortOrderInput | SortOrder
+    interests?: SortOrderInput | SortOrder
     privacyConsent?: SortOrder
     tenantCognitoId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -12074,8 +12074,8 @@ export namespace Prisma {
     NOT?: ContactWhereInput | ContactWhereInput[]
     name?: StringFilter<"Contact"> | string
     email?: StringFilter<"Contact"> | string
-    subject?: StringNullableFilter<"Contact"> | string | null
-    message?: StringFilter<"Contact"> | string
+    message?: StringNullableFilter<"Contact"> | string | null
+    interests?: StringNullableFilter<"Contact"> | string | null
     privacyConsent?: BoolFilter<"Contact"> | boolean
     tenantCognitoId?: StringNullableFilter<"Contact"> | string | null
     createdAt?: DateTimeFilter<"Contact"> | Date | string
@@ -12086,8 +12086,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    subject?: SortOrderInput | SortOrder
-    message?: SortOrder
+    message?: SortOrderInput | SortOrder
+    interests?: SortOrderInput | SortOrder
     privacyConsent?: SortOrder
     tenantCognitoId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -12105,8 +12105,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Contact"> | number
     name?: StringWithAggregatesFilter<"Contact"> | string
     email?: StringWithAggregatesFilter<"Contact"> | string
-    subject?: StringNullableWithAggregatesFilter<"Contact"> | string | null
-    message?: StringWithAggregatesFilter<"Contact"> | string
+    message?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    interests?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     privacyConsent?: BoolWithAggregatesFilter<"Contact"> | boolean
     tenantCognitoId?: StringNullableWithAggregatesFilter<"Contact"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Contact"> | Date | string
@@ -12345,7 +12345,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
@@ -12358,7 +12358,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
@@ -12370,7 +12370,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
@@ -12383,7 +12383,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
@@ -12396,14 +12396,14 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
   }
 
   export type TenantUpdateManyMutationInput = {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantUncheckedUpdateManyInput = {
@@ -12411,7 +12411,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LocationUpdateInput = {
@@ -12677,8 +12677,8 @@ export namespace Prisma {
   export type ContactCreateInput = {
     name: string
     email: string
-    subject?: string | null
-    message: string
+    message?: string | null
+    interests?: string | null
     privacyConsent: boolean
     createdAt?: Date | string
     tenant?: TenantCreateNestedOneWithoutContactsInput
@@ -12688,8 +12688,8 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    subject?: string | null
-    message: string
+    message?: string | null
+    interests?: string | null
     privacyConsent: boolean
     tenantCognitoId?: string | null
     createdAt?: Date | string
@@ -12698,8 +12698,8 @@ export namespace Prisma {
   export type ContactUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    subject?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: NullableStringFieldUpdateOperationsInput | string | null
     privacyConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneWithoutContactsNestedInput
@@ -12709,8 +12709,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    subject?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: NullableStringFieldUpdateOperationsInput | string | null
     privacyConsent?: BoolFieldUpdateOperationsInput | boolean
     tenantCognitoId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12720,8 +12720,8 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    subject?: string | null
-    message: string
+    message?: string | null
+    interests?: string | null
     privacyConsent: boolean
     tenantCognitoId?: string | null
     createdAt?: Date | string
@@ -12730,8 +12730,8 @@ export namespace Prisma {
   export type ContactUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    subject?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: NullableStringFieldUpdateOperationsInput | string | null
     privacyConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12740,8 +12740,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    subject?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: NullableStringFieldUpdateOperationsInput | string | null
     privacyConsent?: BoolFieldUpdateOperationsInput | boolean
     tenantCognitoId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13143,6 +13143,21 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type ContactListRelationFilter = {
     every?: ContactWhereInput
     some?: ContactWhereInput
@@ -13185,6 +13200,24 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type LocationCountOrderByAggregateInput = {
     id?: SortOrder
     address?: SortOrder
@@ -13225,21 +13258,6 @@ export namespace Prisma {
     in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
     not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type PropertyScalarRelationFilter = {
@@ -13316,24 +13334,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type ApplicationNullableScalarRelationFilter = {
@@ -13470,8 +13470,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    subject?: SortOrder
     message?: SortOrder
+    interests?: SortOrder
     privacyConsent?: SortOrder
     tenantCognitoId?: SortOrder
     createdAt?: SortOrder
@@ -13485,8 +13485,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    subject?: SortOrder
     message?: SortOrder
+    interests?: SortOrder
     privacyConsent?: SortOrder
     tenantCognitoId?: SortOrder
     createdAt?: SortOrder
@@ -13496,8 +13496,8 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    subject?: SortOrder
     message?: SortOrder
+    interests?: SortOrder
     privacyConsent?: SortOrder
     tenantCognitoId?: SortOrder
     createdAt?: SortOrder
@@ -13873,6 +13873,10 @@ export namespace Prisma {
     connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type PropertyUpdateManyWithoutTenantsNestedInput = {
     create?: XOR<PropertyCreateWithoutTenantsInput, PropertyUncheckedCreateWithoutTenantsInput> | PropertyCreateWithoutTenantsInput[] | PropertyUncheckedCreateWithoutTenantsInput[]
     connectOrCreate?: PropertyCreateOrConnectWithoutTenantsInput | PropertyCreateOrConnectWithoutTenantsInput[]
@@ -14057,10 +14061,6 @@ export namespace Prisma {
 
   export type EnumApplicationStatusFieldUpdateOperationsInput = {
     set?: $Enums.ApplicationStatus
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type PropertyUpdateOneRequiredWithoutApplicationsNestedInput = {
@@ -14419,13 +14419,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -14438,16 +14431,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
-    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
-    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
-    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14465,6 +14448,23 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
+  }
+
+  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumPaymentStatusFilter<$PrismaModel = never> = {
@@ -14572,7 +14572,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -14584,7 +14584,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -14600,7 +14600,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -14612,7 +14612,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -14757,7 +14757,7 @@ export namespace Prisma {
     cognitoId?: StringFilter<"Tenant"> | string
     name?: StringFilter<"Tenant"> | string
     email?: StringFilter<"Tenant"> | string
-    phoneNumber?: StringFilter<"Tenant"> | string
+    phoneNumber?: StringNullableFilter<"Tenant"> | string | null
   }
 
   export type TenantUpsertWithWhereUniqueWithoutPropertiesInput = {
@@ -15058,8 +15058,8 @@ export namespace Prisma {
   export type ContactCreateWithoutTenantInput = {
     name: string
     email: string
-    subject?: string | null
-    message: string
+    message?: string | null
+    interests?: string | null
     privacyConsent: boolean
     createdAt?: Date | string
   }
@@ -15068,8 +15068,8 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    subject?: string | null
-    message: string
+    message?: string | null
+    interests?: string | null
     privacyConsent: boolean
     createdAt?: Date | string
   }
@@ -15171,8 +15171,8 @@ export namespace Prisma {
     id?: IntFilter<"Contact"> | number
     name?: StringFilter<"Contact"> | string
     email?: StringFilter<"Contact"> | string
-    subject?: StringNullableFilter<"Contact"> | string | null
-    message?: StringFilter<"Contact"> | string
+    message?: StringNullableFilter<"Contact"> | string | null
+    interests?: StringNullableFilter<"Contact"> | string | null
     privacyConsent?: BoolFilter<"Contact"> | boolean
     tenantCognitoId?: StringNullableFilter<"Contact"> | string | null
     createdAt?: DateTimeFilter<"Contact"> | Date | string
@@ -15315,7 +15315,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseCreateNestedManyWithoutTenantInput
@@ -15327,7 +15327,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     leases?: LeaseUncheckedCreateNestedManyWithoutTenantInput
@@ -15442,7 +15442,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -15454,7 +15454,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -15553,7 +15553,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
@@ -15565,7 +15565,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
@@ -15709,7 +15709,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
@@ -15721,7 +15721,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
@@ -15853,7 +15853,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyCreateNestedManyWithoutTenantsInput
     favorites?: PropertyCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationCreateNestedManyWithoutTenantInput
@@ -15865,7 +15865,7 @@ export namespace Prisma {
     cognitoId: string
     name: string
     email: string
-    phoneNumber: string
+    phoneNumber?: string | null
     properties?: PropertyUncheckedCreateNestedManyWithoutTenantsInput
     favorites?: PropertyUncheckedCreateNestedManyWithoutFavoritedByInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutTenantInput
@@ -15892,7 +15892,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
@@ -15904,7 +15904,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
@@ -16001,7 +16001,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -16013,7 +16013,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     properties?: PropertyUncheckedUpdateManyWithoutTenantsNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -16025,14 +16025,14 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TenantUpdateWithoutPropertiesInput = {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: PropertyUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUpdateManyWithoutTenantNestedInput
     leases?: LeaseUpdateManyWithoutTenantNestedInput
@@ -16044,7 +16044,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: PropertyUncheckedUpdateManyWithoutFavoritedByNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutTenantNestedInput
     leases?: LeaseUncheckedUpdateManyWithoutTenantNestedInput
@@ -16056,7 +16056,7 @@ export namespace Prisma {
     cognitoId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    phoneNumber?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PropertyCreateManyManagerInput = {
@@ -16179,8 +16179,8 @@ export namespace Prisma {
     id?: number
     name: string
     email: string
-    subject?: string | null
-    message: string
+    message?: string | null
+    interests?: string | null
     privacyConsent: boolean
     createdAt?: Date | string
   }
@@ -16401,8 +16401,8 @@ export namespace Prisma {
   export type ContactUpdateWithoutTenantInput = {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    subject?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: NullableStringFieldUpdateOperationsInput | string | null
     privacyConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16411,8 +16411,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    subject?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: NullableStringFieldUpdateOperationsInput | string | null
     privacyConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16421,8 +16421,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    subject?: NullableStringFieldUpdateOperationsInput | string | null
-    message?: StringFieldUpdateOperationsInput | string
+    message?: NullableStringFieldUpdateOperationsInput | string | null
+    interests?: NullableStringFieldUpdateOperationsInput | string | null
     privacyConsent?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
