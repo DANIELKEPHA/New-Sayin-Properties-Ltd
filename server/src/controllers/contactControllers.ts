@@ -54,6 +54,7 @@ export const createContact = async (req: Request, res: Response): Promise<void> 
     }
 };
 
+
 export const getContacts = async (req: Request, res: Response): Promise<void> => {
     try {
         const { page = "1", limit = "10", search } = req.query;
@@ -65,16 +66,36 @@ export const getContacts = async (req: Request, res: Response): Promise<void> =>
             return;
         }
 
-        const where = search
+        const where: Prisma.ContactWhereInput | undefined = search
             ? {
                 OR: [
-                    { name: { contains: String(search), mode: "insensitive" as Prisma.QueryMode } },
-                    { email: { contains: String(search), mode: "insensitive" as Prisma.QueryMode } },
-                    { message: { contains: String(search), mode: "insensitive" as Prisma.QueryMode } },
-                    { interests: { contains: String(search), mode: "insensitive" as Prisma.QueryMode } },
+                    {
+                        name: {
+                            contains: String(search),
+                            mode: Prisma.QueryMode.insensitive,
+                        },
+                    },
+                    {
+                        email: {
+                            contains: String(search),
+                            mode: Prisma.QueryMode.insensitive,
+                        },
+                    },
+                    {
+                        message: {
+                            contains: String(search),
+                            mode: Prisma.QueryMode.insensitive,
+                        },
+                    },
+                    {
+                        interests: {
+                            contains: String(search),
+                            mode: Prisma.QueryMode.insensitive,
+                        },
+                    },
                 ],
             }
-            : {};
+            : undefined;
 
         const contacts = await prisma.contact.findMany({
             where,

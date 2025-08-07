@@ -19,10 +19,10 @@ function toCamelCase(str: string): string {
 async function insertLocationData(locations: any[]) {
   for (const location of locations) {
     const { id, country, city, state, address, postalCode, coordinates } =
-      location;
+        location;
     try {
       await prisma.$executeRaw`
-        INSERT INTO "Location" ("id", "country", "city", "state", "address", "postalCode", "coordinates") 
+        INSERT INTO "Location" ("id", "country", "city", "state", "address", "postalCode", "coordinates")
         VALUES (${id}, ${country}, ${city}, ${state}, ${address}, ${postalCode}, ST_GeomFromText(${coordinates}, 4326));
       `;
       console.log(`Inserted location for ${city}`);
@@ -36,7 +36,7 @@ async function resetSequence(modelName: string) {
   const quotedModelName = `"${toPascalCase(modelName)}"`;
 
   const maxIdResult = await (
-    prisma[modelName as keyof PrismaClient] as any
+      prisma[modelName as keyof PrismaClient] as any
   ).findMany({
     select: { id: true },
     orderBy: { id: "desc" },
@@ -46,11 +46,9 @@ async function resetSequence(modelName: string) {
   if (maxIdResult.length === 0) return;
 
   const nextId = maxIdResult[0].id + 1;
-  await prisma.$executeRaw(
-    Prisma.raw(`
+  await prisma.$executeRawUnsafe(`
     SELECT setval(pg_get_serial_sequence('${quotedModelName}', 'id'), coalesce(max(id)+1, ${nextId}), false) FROM ${quotedModelName};
-  `)
-  );
+  `);
   console.log(`Reset sequence for ${modelName} to ${nextId}`);
 }
 
@@ -79,13 +77,13 @@ async function main() {
   const dataDirectory = path.join(__dirname, "seedData");
 
   const orderedFileNames = [
-    "location.json", // No dependencies
-    "manager.json", // No dependencies
-    "property.json", // Depends on location and manager
-    "tenant.json", // No dependencies
-    "lease.json", // Depends on property and tenant
-    "application.json", // Depends on property and tenant
-    "payment.json", // Depends on lease
+    "location.json",
+    "manager.json",
+    "property.json",
+    "tenant.json",
+    "lease.json",
+    "application.json",
+    "payment.json",
     "contact.json",
   ];
 
@@ -97,7 +95,7 @@ async function main() {
     const filePath = path.join(dataDirectory, fileName);
     const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
     const modelName = toPascalCase(
-      path.basename(fileName, path.extname(fileName))
+        path.basename(fileName, path.extname(fileName))
     );
     const modelNameCamel = toCamelCase(modelName);
 
@@ -125,5 +123,5 @@ async function main() {
 }
 
 main()
-  .catch((e) => console.error(e))
-  .finally(async () => await prisma.$disconnect());
+    .catch((e) => console.error(e))
+    .finally(async () => await prisma.$disconnect());
