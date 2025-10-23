@@ -18,7 +18,7 @@ import {
   Settings,
   X,
 } from "lucide-react";
-import { NAVBAR_HEIGHT } from "@/lib/constants";
+import {NAVBAR_HEIGHT, TOTAL_NAV_HEIGHT} from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -49,14 +49,15 @@ const AppSidebar = ({ userType }: AppSidebarProps) => {
         ];
 
   return (
-    <Sidebar
-      collapsible="icon"
-      className="fixed left-0 bg-white shadow-lg"
-      style={{
-        top: `${NAVBAR_HEIGHT}px`,
-        height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-      }}
-    >
+      <Sidebar
+          collapsible="icon"
+          className="fixed left-0 bg-white shadow-lg"
+          style={{
+              top: `${TOTAL_NAV_HEIGHT}px`,
+              height: `calc(100vh - ${TOTAL_NAV_HEIGHT}px)`,
+          }}
+      >
+
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>

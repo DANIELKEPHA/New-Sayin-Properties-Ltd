@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import { NAVBAR_HEIGHT } from "@/lib/constants";
+import {NAVBAR_HEIGHT, TOTAL_NAV_HEIGHT} from "@/lib/constants";
 import { useGetAuthUserQuery } from "@/state/api";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -40,7 +40,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <Navbar />
         <main
             className="h-full flex w-full flex-col"
-            style={{ paddingTop: `${NAVBAR_HEIGHT}px` }}
+            style={{ paddingTop: `${TOTAL_NAV_HEIGHT}px` }}
         >
           {children}
         </main>

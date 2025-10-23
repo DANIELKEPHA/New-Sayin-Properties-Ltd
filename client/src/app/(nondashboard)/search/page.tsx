@@ -1,6 +1,6 @@
 "use client";
 
-import { NAVBAR_HEIGHT } from "@/lib/constants";
+import {NAVBAR_HEIGHT, TOTAL_NAV_HEIGHT} from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
@@ -43,7 +43,7 @@ const SearchPage = () => {
         <div
             className="w-full mx-auto px-5 flex flex-col"
             style={{
-                minHeight: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
+                minHeight: `calc(100vh - ${TOTAL_NAV_HEIGHT}px)`,
             }}
         >
             {/* Filters Bar */}
