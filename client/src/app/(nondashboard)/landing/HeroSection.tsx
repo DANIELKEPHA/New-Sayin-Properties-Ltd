@@ -167,7 +167,7 @@ const HeroSection = () => {
 
                                 {/* Transaction Type Toggle */}
                                 <div className="flex bg-slate-800 rounded-lg p-1">
-                                    {['buy', 'rent', 'commercial'].map((type) => (
+                                    {['buy', 'sell'].map((type) => (
                                         <button
                                             key={type}
                                             onClick={() => setActiveFilter(type)}

@@ -97,10 +97,12 @@ const Navbar = () => {
                                     <Image
                                         src="/logo.svg"
                                         alt="Sayin Properties Logo"
-                                        width={100}
-                                        height={100}
-                                        className="w-12 h-12 md:w-14 md:h-14 transition-transform duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.6)]"
+                                        width={0}
+                                        height={0}
+                                        sizes="100vw"
+                                        className="w-auto h-10 md:h-12 object-contain transition-transform duration-300 hover:scale-110 hover:drop-shadow-[0_0_10px_rgba(37,99,235,0.6)]"
                                     />
+
                                     <div className="text-xl font-bold text-slate-900">
                                         Sayin
                                         <span className="text-blue-600 font-light">
