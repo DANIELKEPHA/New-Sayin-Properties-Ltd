@@ -1,8 +1,8 @@
 import express from "express";
 import {
-  getProperties,
-  getProperty,
-  createProperty,
+    getProperties,
+    getProperty,
+    createProperty, updateProperty, deleteProperty,
 } from "../controllers/propertyControllers";
 import multer from "multer";
 import { authMiddleware } from "../middleware/authMiddleware";
@@ -20,5 +20,7 @@ router.post(
   upload.array("photos"),
   createProperty
 );
+router.put("/:id", upload.array("photos"), updateProperty);
+router.delete("/:id", deleteProperty);
 
 export default router;

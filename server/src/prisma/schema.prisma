@@ -9,6 +9,39 @@ datasource db {
   extensions = [postgis]
 }
 
+enum PropertyCategory {
+  RESIDENTIAL
+  COMMERCIAL
+  LAND
+}
+
+enum PropertyType {
+  Apartment
+  Condo
+  Townhouse
+  Villa
+  Cottage
+  Bungalow
+  Mansion
+  Duplex
+  TinyHouse
+  Room
+  ServicedApartment
+  Penthouse
+  Office
+  Retail
+  Warehouse
+  Industrial
+  Hotel
+  Restaurant
+  Farmhouse
+  ResidentialLand
+  CommercialLand
+  AgriculturalLand
+  MixedUseLand
+  Land
+}
+
 enum Highlight {
   HighSpeedInternetAccess
   WasherDryer
@@ -41,15 +74,19 @@ enum Amenity {
   Parking
   PetsAllowed
   WiFi
+  Security
+  Balcony
+  Garden
 }
 
-enum PropertyType {
-  Rooms
-  Tinyhouse
-  Apartment
-  Villa
-  Townhouse
-  Cottage
+enum Infrastructure {
+  Water
+  Electricity
+  RoadAccess
+  Sewerage
+  Internet
+  StreetLighting
+  Fence
 }
 
 enum ApplicationStatus {
@@ -65,34 +102,70 @@ enum PaymentStatus {
   Overdue
 }
 
+enum PaymentPlan {
+  FULL_PAYMENT
+  INSTALLMENTS
+  FLEXIBLE
+}
+
+enum PriceUnit {
+  PER_MONTH
+  PER_YEAR
+  PER_SQM
+  PER_ACRE
+  TOTAL
+}
+
+enum SizeUnit {
+  SQM
+  ACRES
+  HECTARES
+}
+
+enum ListingStatus {
+  AVAILABLE
+  SOLD
+  RENTED
+  PENDING
+}
+
 model Property {
-  id                Int          @id @default(autoincrement())
-  name              String
+  id                Int              @id @default(autoincrement())
+  title             String           @default("Untitled Property")
   description       String
-  pricePerMonth     Float
-  securityDeposit   Float
-  applicationFee    Float
-  photoUrls         String[]
-  amenities         Amenity[]
+  category          PropertyCategory @default(RESIDENTIAL)
+  propertyType      PropertyType?
+  price             Float            @default(0)
+  priceUnit         PriceUnit        @default(PER_MONTH)
+  paymentPlan       PaymentPlan?
+  size              Float?
+  sizeUnit          SizeUnit?
+  pricePerMonth     Float?
+  securityDeposit   Float?
+  applicationFee    Float?
+  beds              Int?
+  baths             Float?
+  squareFeet        Int?
   highlights        Highlight[]
-  isPetsAllowed     Boolean      @default(false)
-  isParkingIncluded Boolean      @default(false)
-  beds              Int
-  baths             Float
-  squareFeet        Int
-  propertyType      PropertyType
-  postedDate        DateTime     @default(now())
-  averageRating     Float?       @default(0)
-  numberOfReviews   Int?         @default(0)
+  infrastructure    Infrastructure[]
+  isForSale         Boolean          @default(false)
+  isForRent         Boolean          @default(true)
+  isPetsAllowed     Boolean          @default(false)
+  isParkingIncluded Boolean          @default(false)
+  photoUrls         String[]         @default([])
+  listedAt          DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  averageRating     Float?           @default(0)
+  numberOfReviews   Int?             @default(0)
+  status            ListingStatus    @default(AVAILABLE)
   locationId        Int
   managerCognitoId  String
-
-  location     Location      @relation(fields: [locationId], references: [id])
-  manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId])
-  leases       Lease[]
-  applications Application[]
-  favoritedBy  Tenant[]      @relation("TenantFavorites")
-  tenants      Tenant[]      @relation("TenantProperties")
+  location          Location         @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  manager           Manager          @relation(fields: [managerCognitoId], references: [cognitoId], onDelete: Cascade)
+  leases            Lease[]
+  applications      Application[]
+  favoritedBy       Tenant[]         @relation("TenantFavorites")
+  tenants           Tenant[]         @relation("TenantProperties")
 }
 
 model Manager {
@@ -133,8 +206,8 @@ model Location {
 
 model Application {
   id              Int               @id @default(autoincrement())
-  applicationDate DateTime
-  status          ApplicationStatus
+  applicationDate DateTime          @default(now())
+  status          ApplicationStatus @default(Pending)
   propertyId      Int
   tenantCognitoId String
   name            String
@@ -174,6 +247,7 @@ model Payment {
 
   lease Lease @relation(fields: [leaseId], references: [id])
 }
+
 model Contact {
   id              Int      @id @default(autoincrement())
   name            String

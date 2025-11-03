@@ -10,6 +10,9 @@
     "prisma:generate": "npx prisma generate --schema=src/prisma/schema.prisma",
     "postprisma:generate": "shx cp -r node_modules/.prisma/client/index.d.ts ../client/src/types/prismaTypes.d.ts"
   },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
