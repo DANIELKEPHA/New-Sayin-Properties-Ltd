@@ -58,7 +58,46 @@ export type Contact = $Result.DefaultSelection<Prisma.$ContactPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Highlight: {
+  export const PropertyCategory: {
+  RESIDENTIAL: 'RESIDENTIAL',
+  COMMERCIAL: 'COMMERCIAL',
+  LAND: 'LAND'
+};
+
+export type PropertyCategory = (typeof PropertyCategory)[keyof typeof PropertyCategory]
+
+
+export const PropertyType: {
+  Apartment: 'Apartment',
+  Condo: 'Condo',
+  Townhouse: 'Townhouse',
+  Villa: 'Villa',
+  Cottage: 'Cottage',
+  Bungalow: 'Bungalow',
+  Mansion: 'Mansion',
+  Duplex: 'Duplex',
+  TinyHouse: 'TinyHouse',
+  Room: 'Room',
+  ServicedApartment: 'ServicedApartment',
+  Penthouse: 'Penthouse',
+  Office: 'Office',
+  Retail: 'Retail',
+  Warehouse: 'Warehouse',
+  Industrial: 'Industrial',
+  Hotel: 'Hotel',
+  Restaurant: 'Restaurant',
+  Farmhouse: 'Farmhouse',
+  ResidentialLand: 'ResidentialLand',
+  CommercialLand: 'CommercialLand',
+  AgriculturalLand: 'AgriculturalLand',
+  MixedUseLand: 'MixedUseLand',
+  Land: 'Land'
+};
+
+export type PropertyType = (typeof PropertyType)[keyof typeof PropertyType]
+
+
+export const Highlight: {
   HighSpeedInternetAccess: 'HighSpeedInternetAccess',
   WasherDryer: 'WasherDryer',
   AirConditioning: 'AirConditioning',
@@ -92,22 +131,26 @@ export const Amenity: {
   Gym: 'Gym',
   Parking: 'Parking',
   PetsAllowed: 'PetsAllowed',
-  WiFi: 'WiFi'
+  WiFi: 'WiFi',
+  Security: 'Security',
+  Balcony: 'Balcony',
+  Garden: 'Garden'
 };
 
 export type Amenity = (typeof Amenity)[keyof typeof Amenity]
 
 
-export const PropertyType: {
-  Rooms: 'Rooms',
-  Tinyhouse: 'Tinyhouse',
-  Apartment: 'Apartment',
-  Villa: 'Villa',
-  Townhouse: 'Townhouse',
-  Cottage: 'Cottage'
+export const Infrastructure: {
+  Water: 'Water',
+  Electricity: 'Electricity',
+  RoadAccess: 'RoadAccess',
+  Sewerage: 'Sewerage',
+  Internet: 'Internet',
+  StreetLighting: 'StreetLighting',
+  Fence: 'Fence'
 };
 
-export type PropertyType = (typeof PropertyType)[keyof typeof PropertyType]
+export type Infrastructure = (typeof Infrastructure)[keyof typeof Infrastructure]
 
 
 export const ApplicationStatus: {
@@ -128,7 +171,54 @@ export const PaymentStatus: {
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
+
+export const PaymentPlan: {
+  FULL_PAYMENT: 'FULL_PAYMENT',
+  INSTALLMENTS: 'INSTALLMENTS',
+  FLEXIBLE: 'FLEXIBLE'
+};
+
+export type PaymentPlan = (typeof PaymentPlan)[keyof typeof PaymentPlan]
+
+
+export const PriceUnit: {
+  PER_MONTH: 'PER_MONTH',
+  PER_YEAR: 'PER_YEAR',
+  PER_SQM: 'PER_SQM',
+  PER_ACRE: 'PER_ACRE',
+  TOTAL: 'TOTAL'
+};
+
+export type PriceUnit = (typeof PriceUnit)[keyof typeof PriceUnit]
+
+
+export const SizeUnit: {
+  SQM: 'SQM',
+  ACRES: 'ACRES',
+  HECTARES: 'HECTARES'
+};
+
+export type SizeUnit = (typeof SizeUnit)[keyof typeof SizeUnit]
+
+
+export const ListingStatus: {
+  AVAILABLE: 'AVAILABLE',
+  SOLD: 'SOLD',
+  RENTED: 'RENTED',
+  PENDING: 'PENDING'
+};
+
+export type ListingStatus = (typeof ListingStatus)[keyof typeof ListingStatus]
+
 }
+
+export type PropertyCategory = $Enums.PropertyCategory
+
+export const PropertyCategory: typeof $Enums.PropertyCategory
+
+export type PropertyType = $Enums.PropertyType
+
+export const PropertyType: typeof $Enums.PropertyType
 
 export type Highlight = $Enums.Highlight
 
@@ -138,9 +228,9 @@ export type Amenity = $Enums.Amenity
 
 export const Amenity: typeof $Enums.Amenity
 
-export type PropertyType = $Enums.PropertyType
+export type Infrastructure = $Enums.Infrastructure
 
-export const PropertyType: typeof $Enums.PropertyType
+export const Infrastructure: typeof $Enums.Infrastructure
 
 export type ApplicationStatus = $Enums.ApplicationStatus
 
@@ -149,6 +239,22 @@ export const ApplicationStatus: typeof $Enums.ApplicationStatus
 export type PaymentStatus = $Enums.PaymentStatus
 
 export const PaymentStatus: typeof $Enums.PaymentStatus
+
+export type PaymentPlan = $Enums.PaymentPlan
+
+export const PaymentPlan: typeof $Enums.PaymentPlan
+
+export type PriceUnit = $Enums.PriceUnit
+
+export const PriceUnit: typeof $Enums.PriceUnit
+
+export type SizeUnit = $Enums.SizeUnit
+
+export const SizeUnit: typeof $Enums.SizeUnit
+
+export type ListingStatus = $Enums.ListingStatus
+
+export const ListingStatus: typeof $Enums.ListingStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1814,6 +1920,8 @@ export namespace Prisma {
 
   export type PropertyAvgAggregateOutputType = {
     id: number | null
+    price: number | null
+    size: number | null
     pricePerMonth: number | null
     securityDeposit: number | null
     applicationFee: number | null
@@ -1827,6 +1935,8 @@ export namespace Prisma {
 
   export type PropertySumAggregateOutputType = {
     id: number | null
+    price: number | null
+    size: number | null
     pricePerMonth: number | null
     securityDeposit: number | null
     applicationFee: number | null
@@ -1840,63 +1950,93 @@ export namespace Prisma {
 
   export type PropertyMinAggregateOutputType = {
     id: number | null
-    name: string | null
+    title: string | null
     description: string | null
+    category: $Enums.PropertyCategory | null
+    propertyType: $Enums.PropertyType | null
+    price: number | null
+    priceUnit: $Enums.PriceUnit | null
+    paymentPlan: $Enums.PaymentPlan | null
+    size: number | null
+    sizeUnit: $Enums.SizeUnit | null
     pricePerMonth: number | null
     securityDeposit: number | null
     applicationFee: number | null
-    isPetsAllowed: boolean | null
-    isParkingIncluded: boolean | null
     beds: number | null
     baths: number | null
     squareFeet: number | null
-    propertyType: $Enums.PropertyType | null
-    postedDate: Date | null
+    isForSale: boolean | null
+    isForRent: boolean | null
+    isPetsAllowed: boolean | null
+    isParkingIncluded: boolean | null
+    listedAt: Date | null
+    updatedAt: Date | null
     averageRating: number | null
     numberOfReviews: number | null
+    status: $Enums.ListingStatus | null
     locationId: number | null
     managerCognitoId: string | null
   }
 
   export type PropertyMaxAggregateOutputType = {
     id: number | null
-    name: string | null
+    title: string | null
     description: string | null
+    category: $Enums.PropertyCategory | null
+    propertyType: $Enums.PropertyType | null
+    price: number | null
+    priceUnit: $Enums.PriceUnit | null
+    paymentPlan: $Enums.PaymentPlan | null
+    size: number | null
+    sizeUnit: $Enums.SizeUnit | null
     pricePerMonth: number | null
     securityDeposit: number | null
     applicationFee: number | null
-    isPetsAllowed: boolean | null
-    isParkingIncluded: boolean | null
     beds: number | null
     baths: number | null
     squareFeet: number | null
-    propertyType: $Enums.PropertyType | null
-    postedDate: Date | null
+    isForSale: boolean | null
+    isForRent: boolean | null
+    isPetsAllowed: boolean | null
+    isParkingIncluded: boolean | null
+    listedAt: Date | null
+    updatedAt: Date | null
     averageRating: number | null
     numberOfReviews: number | null
+    status: $Enums.ListingStatus | null
     locationId: number | null
     managerCognitoId: string | null
   }
 
   export type PropertyCountAggregateOutputType = {
     id: number
-    name: number
+    title: number
     description: number
+    category: number
+    propertyType: number
+    price: number
+    priceUnit: number
+    paymentPlan: number
+    size: number
+    sizeUnit: number
     pricePerMonth: number
     securityDeposit: number
     applicationFee: number
-    photoUrls: number
-    amenities: number
-    highlights: number
-    isPetsAllowed: number
-    isParkingIncluded: number
     beds: number
     baths: number
     squareFeet: number
-    propertyType: number
-    postedDate: number
+    highlights: number
+    infrastructure: number
+    isForSale: number
+    isForRent: number
+    isPetsAllowed: number
+    isParkingIncluded: number
+    photoUrls: number
+    listedAt: number
+    updatedAt: number
     averageRating: number
     numberOfReviews: number
+    status: number
     locationId: number
     managerCognitoId: number
     _all: number
@@ -1905,6 +2045,8 @@ export namespace Prisma {
 
   export type PropertyAvgAggregateInputType = {
     id?: true
+    price?: true
+    size?: true
     pricePerMonth?: true
     securityDeposit?: true
     applicationFee?: true
@@ -1918,6 +2060,8 @@ export namespace Prisma {
 
   export type PropertySumAggregateInputType = {
     id?: true
+    price?: true
+    size?: true
     pricePerMonth?: true
     securityDeposit?: true
     applicationFee?: true
@@ -1931,63 +2075,93 @@ export namespace Prisma {
 
   export type PropertyMinAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
+    category?: true
+    propertyType?: true
+    price?: true
+    priceUnit?: true
+    paymentPlan?: true
+    size?: true
+    sizeUnit?: true
     pricePerMonth?: true
     securityDeposit?: true
     applicationFee?: true
-    isPetsAllowed?: true
-    isParkingIncluded?: true
     beds?: true
     baths?: true
     squareFeet?: true
-    propertyType?: true
-    postedDate?: true
+    isForSale?: true
+    isForRent?: true
+    isPetsAllowed?: true
+    isParkingIncluded?: true
+    listedAt?: true
+    updatedAt?: true
     averageRating?: true
     numberOfReviews?: true
+    status?: true
     locationId?: true
     managerCognitoId?: true
   }
 
   export type PropertyMaxAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
+    category?: true
+    propertyType?: true
+    price?: true
+    priceUnit?: true
+    paymentPlan?: true
+    size?: true
+    sizeUnit?: true
     pricePerMonth?: true
     securityDeposit?: true
     applicationFee?: true
-    isPetsAllowed?: true
-    isParkingIncluded?: true
     beds?: true
     baths?: true
     squareFeet?: true
-    propertyType?: true
-    postedDate?: true
+    isForSale?: true
+    isForRent?: true
+    isPetsAllowed?: true
+    isParkingIncluded?: true
+    listedAt?: true
+    updatedAt?: true
     averageRating?: true
     numberOfReviews?: true
+    status?: true
     locationId?: true
     managerCognitoId?: true
   }
 
   export type PropertyCountAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
+    category?: true
+    propertyType?: true
+    price?: true
+    priceUnit?: true
+    paymentPlan?: true
+    size?: true
+    sizeUnit?: true
     pricePerMonth?: true
     securityDeposit?: true
     applicationFee?: true
-    photoUrls?: true
-    amenities?: true
-    highlights?: true
-    isPetsAllowed?: true
-    isParkingIncluded?: true
     beds?: true
     baths?: true
     squareFeet?: true
-    propertyType?: true
-    postedDate?: true
+    highlights?: true
+    infrastructure?: true
+    isForSale?: true
+    isForRent?: true
+    isPetsAllowed?: true
+    isParkingIncluded?: true
+    photoUrls?: true
+    listedAt?: true
+    updatedAt?: true
     averageRating?: true
     numberOfReviews?: true
+    status?: true
     locationId?: true
     managerCognitoId?: true
     _all?: true
@@ -2081,23 +2255,33 @@ export namespace Prisma {
 
   export type PropertyGroupByOutputType = {
     id: number
-    name: string
+    title: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls: string[]
-    amenities: $Enums.Amenity[]
+    category: $Enums.PropertyCategory
+    propertyType: $Enums.PropertyType | null
+    price: number
+    priceUnit: $Enums.PriceUnit
+    paymentPlan: $Enums.PaymentPlan | null
+    size: number | null
+    sizeUnit: $Enums.SizeUnit | null
+    pricePerMonth: number | null
+    securityDeposit: number | null
+    applicationFee: number | null
+    beds: number | null
+    baths: number | null
+    squareFeet: number | null
     highlights: $Enums.Highlight[]
+    infrastructure: $Enums.Infrastructure[]
+    isForSale: boolean
+    isForRent: boolean
     isPetsAllowed: boolean
     isParkingIncluded: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate: Date
+    photoUrls: string[]
+    listedAt: Date
+    updatedAt: Date
     averageRating: number | null
     numberOfReviews: number | null
+    status: $Enums.ListingStatus
     locationId: number
     managerCognitoId: string
     _count: PropertyCountAggregateOutputType | null
@@ -2123,23 +2307,33 @@ export namespace Prisma {
 
   export type PropertySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
+    category?: boolean
+    propertyType?: boolean
+    price?: boolean
+    priceUnit?: boolean
+    paymentPlan?: boolean
+    size?: boolean
+    sizeUnit?: boolean
     pricePerMonth?: boolean
     securityDeposit?: boolean
     applicationFee?: boolean
-    photoUrls?: boolean
-    amenities?: boolean
-    highlights?: boolean
-    isPetsAllowed?: boolean
-    isParkingIncluded?: boolean
     beds?: boolean
     baths?: boolean
     squareFeet?: boolean
-    propertyType?: boolean
-    postedDate?: boolean
+    highlights?: boolean
+    infrastructure?: boolean
+    isForSale?: boolean
+    isForRent?: boolean
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    photoUrls?: boolean
+    listedAt?: boolean
+    updatedAt?: boolean
     averageRating?: boolean
     numberOfReviews?: boolean
+    status?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
@@ -2153,23 +2347,33 @@ export namespace Prisma {
 
   export type PropertySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
+    category?: boolean
+    propertyType?: boolean
+    price?: boolean
+    priceUnit?: boolean
+    paymentPlan?: boolean
+    size?: boolean
+    sizeUnit?: boolean
     pricePerMonth?: boolean
     securityDeposit?: boolean
     applicationFee?: boolean
-    photoUrls?: boolean
-    amenities?: boolean
-    highlights?: boolean
-    isPetsAllowed?: boolean
-    isParkingIncluded?: boolean
     beds?: boolean
     baths?: boolean
     squareFeet?: boolean
-    propertyType?: boolean
-    postedDate?: boolean
+    highlights?: boolean
+    infrastructure?: boolean
+    isForSale?: boolean
+    isForRent?: boolean
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    photoUrls?: boolean
+    listedAt?: boolean
+    updatedAt?: boolean
     averageRating?: boolean
     numberOfReviews?: boolean
+    status?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
@@ -2178,23 +2382,33 @@ export namespace Prisma {
 
   export type PropertySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
+    category?: boolean
+    propertyType?: boolean
+    price?: boolean
+    priceUnit?: boolean
+    paymentPlan?: boolean
+    size?: boolean
+    sizeUnit?: boolean
     pricePerMonth?: boolean
     securityDeposit?: boolean
     applicationFee?: boolean
-    photoUrls?: boolean
-    amenities?: boolean
-    highlights?: boolean
-    isPetsAllowed?: boolean
-    isParkingIncluded?: boolean
     beds?: boolean
     baths?: boolean
     squareFeet?: boolean
-    propertyType?: boolean
-    postedDate?: boolean
+    highlights?: boolean
+    infrastructure?: boolean
+    isForSale?: boolean
+    isForRent?: boolean
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    photoUrls?: boolean
+    listedAt?: boolean
+    updatedAt?: boolean
     averageRating?: boolean
     numberOfReviews?: boolean
+    status?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
     location?: boolean | LocationDefaultArgs<ExtArgs>
@@ -2203,28 +2417,38 @@ export namespace Prisma {
 
   export type PropertySelectScalar = {
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
+    category?: boolean
+    propertyType?: boolean
+    price?: boolean
+    priceUnit?: boolean
+    paymentPlan?: boolean
+    size?: boolean
+    sizeUnit?: boolean
     pricePerMonth?: boolean
     securityDeposit?: boolean
     applicationFee?: boolean
-    photoUrls?: boolean
-    amenities?: boolean
-    highlights?: boolean
-    isPetsAllowed?: boolean
-    isParkingIncluded?: boolean
     beds?: boolean
     baths?: boolean
     squareFeet?: boolean
-    propertyType?: boolean
-    postedDate?: boolean
+    highlights?: boolean
+    infrastructure?: boolean
+    isForSale?: boolean
+    isForRent?: boolean
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    photoUrls?: boolean
+    listedAt?: boolean
+    updatedAt?: boolean
     averageRating?: boolean
     numberOfReviews?: boolean
+    status?: boolean
     locationId?: boolean
     managerCognitoId?: boolean
   }
 
-  export type PropertyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "pricePerMonth" | "securityDeposit" | "applicationFee" | "photoUrls" | "amenities" | "highlights" | "isPetsAllowed" | "isParkingIncluded" | "beds" | "baths" | "squareFeet" | "propertyType" | "postedDate" | "averageRating" | "numberOfReviews" | "locationId" | "managerCognitoId", ExtArgs["result"]["property"]>
+  export type PropertyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "category" | "propertyType" | "price" | "priceUnit" | "paymentPlan" | "size" | "sizeUnit" | "pricePerMonth" | "securityDeposit" | "applicationFee" | "beds" | "baths" | "squareFeet" | "highlights" | "infrastructure" | "isForSale" | "isForRent" | "isPetsAllowed" | "isParkingIncluded" | "photoUrls" | "listedAt" | "updatedAt" | "averageRating" | "numberOfReviews" | "status" | "locationId" | "managerCognitoId", ExtArgs["result"]["property"]>
   export type PropertyInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     location?: boolean | LocationDefaultArgs<ExtArgs>
     manager?: boolean | ManagerDefaultArgs<ExtArgs>
@@ -2255,23 +2479,33 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      name: string
+      title: string
       description: string
-      pricePerMonth: number
-      securityDeposit: number
-      applicationFee: number
-      photoUrls: string[]
-      amenities: $Enums.Amenity[]
+      category: $Enums.PropertyCategory
+      propertyType: $Enums.PropertyType | null
+      price: number
+      priceUnit: $Enums.PriceUnit
+      paymentPlan: $Enums.PaymentPlan | null
+      size: number | null
+      sizeUnit: $Enums.SizeUnit | null
+      pricePerMonth: number | null
+      securityDeposit: number | null
+      applicationFee: number | null
+      beds: number | null
+      baths: number | null
+      squareFeet: number | null
       highlights: $Enums.Highlight[]
+      infrastructure: $Enums.Infrastructure[]
+      isForSale: boolean
+      isForRent: boolean
       isPetsAllowed: boolean
       isParkingIncluded: boolean
-      beds: number
-      baths: number
-      squareFeet: number
-      propertyType: $Enums.PropertyType
-      postedDate: Date
+      photoUrls: string[]
+      listedAt: Date
+      updatedAt: Date
       averageRating: number | null
       numberOfReviews: number | null
+      status: $Enums.ListingStatus
       locationId: number
       managerCognitoId: string
     }, ExtArgs["result"]["property"]>
@@ -2704,23 +2938,33 @@ export namespace Prisma {
    */ 
   interface PropertyFieldRefs {
     readonly id: FieldRef<"Property", 'Int'>
-    readonly name: FieldRef<"Property", 'String'>
+    readonly title: FieldRef<"Property", 'String'>
     readonly description: FieldRef<"Property", 'String'>
+    readonly category: FieldRef<"Property", 'PropertyCategory'>
+    readonly propertyType: FieldRef<"Property", 'PropertyType'>
+    readonly price: FieldRef<"Property", 'Float'>
+    readonly priceUnit: FieldRef<"Property", 'PriceUnit'>
+    readonly paymentPlan: FieldRef<"Property", 'PaymentPlan'>
+    readonly size: FieldRef<"Property", 'Float'>
+    readonly sizeUnit: FieldRef<"Property", 'SizeUnit'>
     readonly pricePerMonth: FieldRef<"Property", 'Float'>
     readonly securityDeposit: FieldRef<"Property", 'Float'>
     readonly applicationFee: FieldRef<"Property", 'Float'>
-    readonly photoUrls: FieldRef<"Property", 'String[]'>
-    readonly amenities: FieldRef<"Property", 'Amenity[]'>
-    readonly highlights: FieldRef<"Property", 'Highlight[]'>
-    readonly isPetsAllowed: FieldRef<"Property", 'Boolean'>
-    readonly isParkingIncluded: FieldRef<"Property", 'Boolean'>
     readonly beds: FieldRef<"Property", 'Int'>
     readonly baths: FieldRef<"Property", 'Float'>
     readonly squareFeet: FieldRef<"Property", 'Int'>
-    readonly propertyType: FieldRef<"Property", 'PropertyType'>
-    readonly postedDate: FieldRef<"Property", 'DateTime'>
+    readonly highlights: FieldRef<"Property", 'Highlight[]'>
+    readonly infrastructure: FieldRef<"Property", 'Infrastructure[]'>
+    readonly isForSale: FieldRef<"Property", 'Boolean'>
+    readonly isForRent: FieldRef<"Property", 'Boolean'>
+    readonly isPetsAllowed: FieldRef<"Property", 'Boolean'>
+    readonly isParkingIncluded: FieldRef<"Property", 'Boolean'>
+    readonly photoUrls: FieldRef<"Property", 'String[]'>
+    readonly listedAt: FieldRef<"Property", 'DateTime'>
+    readonly updatedAt: FieldRef<"Property", 'DateTime'>
     readonly averageRating: FieldRef<"Property", 'Float'>
     readonly numberOfReviews: FieldRef<"Property", 'Int'>
+    readonly status: FieldRef<"Property", 'ListingStatus'>
     readonly locationId: FieldRef<"Property", 'Int'>
     readonly managerCognitoId: FieldRef<"Property", 'String'>
   }
@@ -11195,23 +11439,33 @@ export namespace Prisma {
 
   export const PropertyScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    title: 'title',
     description: 'description',
+    category: 'category',
+    propertyType: 'propertyType',
+    price: 'price',
+    priceUnit: 'priceUnit',
+    paymentPlan: 'paymentPlan',
+    size: 'size',
+    sizeUnit: 'sizeUnit',
     pricePerMonth: 'pricePerMonth',
     securityDeposit: 'securityDeposit',
     applicationFee: 'applicationFee',
-    photoUrls: 'photoUrls',
-    amenities: 'amenities',
-    highlights: 'highlights',
-    isPetsAllowed: 'isPetsAllowed',
-    isParkingIncluded: 'isParkingIncluded',
     beds: 'beds',
     baths: 'baths',
     squareFeet: 'squareFeet',
-    propertyType: 'propertyType',
-    postedDate: 'postedDate',
+    highlights: 'highlights',
+    infrastructure: 'infrastructure',
+    isForSale: 'isForSale',
+    isForRent: 'isForRent',
+    isPetsAllowed: 'isPetsAllowed',
+    isParkingIncluded: 'isParkingIncluded',
+    photoUrls: 'photoUrls',
+    listedAt: 'listedAt',
+    updatedAt: 'updatedAt',
     averageRating: 'averageRating',
     numberOfReviews: 'numberOfReviews',
+    status: 'status',
     locationId: 'locationId',
     managerCognitoId: 'managerCognitoId'
   };
@@ -11367,51 +11621,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Float'
+   * Reference to a field of type 'PropertyCategory'
    */
-  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+  export type EnumPropertyCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyCategory'>
     
 
 
   /**
-   * Reference to a field of type 'Float[]'
+   * Reference to a field of type 'PropertyCategory[]'
    */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Amenity[]'
-   */
-  export type ListEnumAmenityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Amenity[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Amenity'
-   */
-  export type EnumAmenityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Amenity'>
-    
-
-
-  /**
-   * Reference to a field of type 'Highlight[]'
-   */
-  export type ListEnumHighlightFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Highlight[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Highlight'
-   */
-  export type EnumHighlightFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Highlight'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+  export type ListEnumPropertyCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PropertyCategory[]'>
     
 
 
@@ -11430,6 +11649,97 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PriceUnit'
+   */
+  export type EnumPriceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PriceUnit'>
+    
+
+
+  /**
+   * Reference to a field of type 'PriceUnit[]'
+   */
+  export type ListEnumPriceUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PriceUnit[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PaymentPlan'
+   */
+  export type EnumPaymentPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentPlan'>
+    
+
+
+  /**
+   * Reference to a field of type 'PaymentPlan[]'
+   */
+  export type ListEnumPaymentPlanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentPlan[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'SizeUnit'
+   */
+  export type EnumSizeUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SizeUnit'>
+    
+
+
+  /**
+   * Reference to a field of type 'SizeUnit[]'
+   */
+  export type ListEnumSizeUnitFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SizeUnit[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Highlight[]'
+   */
+  export type ListEnumHighlightFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Highlight[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Highlight'
+   */
+  export type EnumHighlightFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Highlight'>
+    
+
+
+  /**
+   * Reference to a field of type 'Infrastructure[]'
+   */
+  export type ListEnumInfrastructureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Infrastructure[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Infrastructure'
+   */
+  export type EnumInfrastructureFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Infrastructure'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -11440,6 +11750,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'ListingStatus'
+   */
+  export type EnumListingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListingStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ListingStatus[]'
+   */
+  export type ListEnumListingStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ListingStatus[]'>
     
 
 
@@ -11479,23 +11803,33 @@ export namespace Prisma {
     OR?: PropertyWhereInput[]
     NOT?: PropertyWhereInput | PropertyWhereInput[]
     id?: IntFilter<"Property"> | number
-    name?: StringFilter<"Property"> | string
+    title?: StringFilter<"Property"> | string
     description?: StringFilter<"Property"> | string
-    pricePerMonth?: FloatFilter<"Property"> | number
-    securityDeposit?: FloatFilter<"Property"> | number
-    applicationFee?: FloatFilter<"Property"> | number
-    photoUrls?: StringNullableListFilter<"Property">
-    amenities?: EnumAmenityNullableListFilter<"Property">
+    category?: EnumPropertyCategoryFilter<"Property"> | $Enums.PropertyCategory
+    propertyType?: EnumPropertyTypeNullableFilter<"Property"> | $Enums.PropertyType | null
+    price?: FloatFilter<"Property"> | number
+    priceUnit?: EnumPriceUnitFilter<"Property"> | $Enums.PriceUnit
+    paymentPlan?: EnumPaymentPlanNullableFilter<"Property"> | $Enums.PaymentPlan | null
+    size?: FloatNullableFilter<"Property"> | number | null
+    sizeUnit?: EnumSizeUnitNullableFilter<"Property"> | $Enums.SizeUnit | null
+    pricePerMonth?: FloatNullableFilter<"Property"> | number | null
+    securityDeposit?: FloatNullableFilter<"Property"> | number | null
+    applicationFee?: FloatNullableFilter<"Property"> | number | null
+    beds?: IntNullableFilter<"Property"> | number | null
+    baths?: FloatNullableFilter<"Property"> | number | null
+    squareFeet?: IntNullableFilter<"Property"> | number | null
     highlights?: EnumHighlightNullableListFilter<"Property">
+    infrastructure?: EnumInfrastructureNullableListFilter<"Property">
+    isForSale?: BoolFilter<"Property"> | boolean
+    isForRent?: BoolFilter<"Property"> | boolean
     isPetsAllowed?: BoolFilter<"Property"> | boolean
     isParkingIncluded?: BoolFilter<"Property"> | boolean
-    beds?: IntFilter<"Property"> | number
-    baths?: FloatFilter<"Property"> | number
-    squareFeet?: IntFilter<"Property"> | number
-    propertyType?: EnumPropertyTypeFilter<"Property"> | $Enums.PropertyType
-    postedDate?: DateTimeFilter<"Property"> | Date | string
+    photoUrls?: StringNullableListFilter<"Property">
+    listedAt?: DateTimeFilter<"Property"> | Date | string
+    updatedAt?: DateTimeFilter<"Property"> | Date | string
     averageRating?: FloatNullableFilter<"Property"> | number | null
     numberOfReviews?: IntNullableFilter<"Property"> | number | null
+    status?: EnumListingStatusFilter<"Property"> | $Enums.ListingStatus
     locationId?: IntFilter<"Property"> | number
     managerCognitoId?: StringFilter<"Property"> | string
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
@@ -11508,23 +11842,33 @@ export namespace Prisma {
 
   export type PropertyOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    pricePerMonth?: SortOrder
-    securityDeposit?: SortOrder
-    applicationFee?: SortOrder
-    photoUrls?: SortOrder
-    amenities?: SortOrder
+    category?: SortOrder
+    propertyType?: SortOrderInput | SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    paymentPlan?: SortOrderInput | SortOrder
+    size?: SortOrderInput | SortOrder
+    sizeUnit?: SortOrderInput | SortOrder
+    pricePerMonth?: SortOrderInput | SortOrder
+    securityDeposit?: SortOrderInput | SortOrder
+    applicationFee?: SortOrderInput | SortOrder
+    beds?: SortOrderInput | SortOrder
+    baths?: SortOrderInput | SortOrder
+    squareFeet?: SortOrderInput | SortOrder
     highlights?: SortOrder
+    infrastructure?: SortOrder
+    isForSale?: SortOrder
+    isForRent?: SortOrder
     isPetsAllowed?: SortOrder
     isParkingIncluded?: SortOrder
-    beds?: SortOrder
-    baths?: SortOrder
-    squareFeet?: SortOrder
-    propertyType?: SortOrder
-    postedDate?: SortOrder
+    photoUrls?: SortOrder
+    listedAt?: SortOrder
+    updatedAt?: SortOrder
     averageRating?: SortOrderInput | SortOrder
     numberOfReviews?: SortOrderInput | SortOrder
+    status?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
     location?: LocationOrderByWithRelationInput
@@ -11540,23 +11884,33 @@ export namespace Prisma {
     AND?: PropertyWhereInput | PropertyWhereInput[]
     OR?: PropertyWhereInput[]
     NOT?: PropertyWhereInput | PropertyWhereInput[]
-    name?: StringFilter<"Property"> | string
+    title?: StringFilter<"Property"> | string
     description?: StringFilter<"Property"> | string
-    pricePerMonth?: FloatFilter<"Property"> | number
-    securityDeposit?: FloatFilter<"Property"> | number
-    applicationFee?: FloatFilter<"Property"> | number
-    photoUrls?: StringNullableListFilter<"Property">
-    amenities?: EnumAmenityNullableListFilter<"Property">
+    category?: EnumPropertyCategoryFilter<"Property"> | $Enums.PropertyCategory
+    propertyType?: EnumPropertyTypeNullableFilter<"Property"> | $Enums.PropertyType | null
+    price?: FloatFilter<"Property"> | number
+    priceUnit?: EnumPriceUnitFilter<"Property"> | $Enums.PriceUnit
+    paymentPlan?: EnumPaymentPlanNullableFilter<"Property"> | $Enums.PaymentPlan | null
+    size?: FloatNullableFilter<"Property"> | number | null
+    sizeUnit?: EnumSizeUnitNullableFilter<"Property"> | $Enums.SizeUnit | null
+    pricePerMonth?: FloatNullableFilter<"Property"> | number | null
+    securityDeposit?: FloatNullableFilter<"Property"> | number | null
+    applicationFee?: FloatNullableFilter<"Property"> | number | null
+    beds?: IntNullableFilter<"Property"> | number | null
+    baths?: FloatNullableFilter<"Property"> | number | null
+    squareFeet?: IntNullableFilter<"Property"> | number | null
     highlights?: EnumHighlightNullableListFilter<"Property">
+    infrastructure?: EnumInfrastructureNullableListFilter<"Property">
+    isForSale?: BoolFilter<"Property"> | boolean
+    isForRent?: BoolFilter<"Property"> | boolean
     isPetsAllowed?: BoolFilter<"Property"> | boolean
     isParkingIncluded?: BoolFilter<"Property"> | boolean
-    beds?: IntFilter<"Property"> | number
-    baths?: FloatFilter<"Property"> | number
-    squareFeet?: IntFilter<"Property"> | number
-    propertyType?: EnumPropertyTypeFilter<"Property"> | $Enums.PropertyType
-    postedDate?: DateTimeFilter<"Property"> | Date | string
+    photoUrls?: StringNullableListFilter<"Property">
+    listedAt?: DateTimeFilter<"Property"> | Date | string
+    updatedAt?: DateTimeFilter<"Property"> | Date | string
     averageRating?: FloatNullableFilter<"Property"> | number | null
     numberOfReviews?: IntNullableFilter<"Property"> | number | null
+    status?: EnumListingStatusFilter<"Property"> | $Enums.ListingStatus
     locationId?: IntFilter<"Property"> | number
     managerCognitoId?: StringFilter<"Property"> | string
     location?: XOR<LocationScalarRelationFilter, LocationWhereInput>
@@ -11569,23 +11923,33 @@ export namespace Prisma {
 
   export type PropertyOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
-    pricePerMonth?: SortOrder
-    securityDeposit?: SortOrder
-    applicationFee?: SortOrder
-    photoUrls?: SortOrder
-    amenities?: SortOrder
+    category?: SortOrder
+    propertyType?: SortOrderInput | SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    paymentPlan?: SortOrderInput | SortOrder
+    size?: SortOrderInput | SortOrder
+    sizeUnit?: SortOrderInput | SortOrder
+    pricePerMonth?: SortOrderInput | SortOrder
+    securityDeposit?: SortOrderInput | SortOrder
+    applicationFee?: SortOrderInput | SortOrder
+    beds?: SortOrderInput | SortOrder
+    baths?: SortOrderInput | SortOrder
+    squareFeet?: SortOrderInput | SortOrder
     highlights?: SortOrder
+    infrastructure?: SortOrder
+    isForSale?: SortOrder
+    isForRent?: SortOrder
     isPetsAllowed?: SortOrder
     isParkingIncluded?: SortOrder
-    beds?: SortOrder
-    baths?: SortOrder
-    squareFeet?: SortOrder
-    propertyType?: SortOrder
-    postedDate?: SortOrder
+    photoUrls?: SortOrder
+    listedAt?: SortOrder
+    updatedAt?: SortOrder
     averageRating?: SortOrderInput | SortOrder
     numberOfReviews?: SortOrderInput | SortOrder
+    status?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
     _count?: PropertyCountOrderByAggregateInput
@@ -11600,23 +11964,33 @@ export namespace Prisma {
     OR?: PropertyScalarWhereWithAggregatesInput[]
     NOT?: PropertyScalarWhereWithAggregatesInput | PropertyScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"Property"> | number
-    name?: StringWithAggregatesFilter<"Property"> | string
+    title?: StringWithAggregatesFilter<"Property"> | string
     description?: StringWithAggregatesFilter<"Property"> | string
-    pricePerMonth?: FloatWithAggregatesFilter<"Property"> | number
-    securityDeposit?: FloatWithAggregatesFilter<"Property"> | number
-    applicationFee?: FloatWithAggregatesFilter<"Property"> | number
-    photoUrls?: StringNullableListFilter<"Property">
-    amenities?: EnumAmenityNullableListFilter<"Property">
+    category?: EnumPropertyCategoryWithAggregatesFilter<"Property"> | $Enums.PropertyCategory
+    propertyType?: EnumPropertyTypeNullableWithAggregatesFilter<"Property"> | $Enums.PropertyType | null
+    price?: FloatWithAggregatesFilter<"Property"> | number
+    priceUnit?: EnumPriceUnitWithAggregatesFilter<"Property"> | $Enums.PriceUnit
+    paymentPlan?: EnumPaymentPlanNullableWithAggregatesFilter<"Property"> | $Enums.PaymentPlan | null
+    size?: FloatNullableWithAggregatesFilter<"Property"> | number | null
+    sizeUnit?: EnumSizeUnitNullableWithAggregatesFilter<"Property"> | $Enums.SizeUnit | null
+    pricePerMonth?: FloatNullableWithAggregatesFilter<"Property"> | number | null
+    securityDeposit?: FloatNullableWithAggregatesFilter<"Property"> | number | null
+    applicationFee?: FloatNullableWithAggregatesFilter<"Property"> | number | null
+    beds?: IntNullableWithAggregatesFilter<"Property"> | number | null
+    baths?: FloatNullableWithAggregatesFilter<"Property"> | number | null
+    squareFeet?: IntNullableWithAggregatesFilter<"Property"> | number | null
     highlights?: EnumHighlightNullableListFilter<"Property">
+    infrastructure?: EnumInfrastructureNullableListFilter<"Property">
+    isForSale?: BoolWithAggregatesFilter<"Property"> | boolean
+    isForRent?: BoolWithAggregatesFilter<"Property"> | boolean
     isPetsAllowed?: BoolWithAggregatesFilter<"Property"> | boolean
     isParkingIncluded?: BoolWithAggregatesFilter<"Property"> | boolean
-    beds?: IntWithAggregatesFilter<"Property"> | number
-    baths?: FloatWithAggregatesFilter<"Property"> | number
-    squareFeet?: IntWithAggregatesFilter<"Property"> | number
-    propertyType?: EnumPropertyTypeWithAggregatesFilter<"Property"> | $Enums.PropertyType
-    postedDate?: DateTimeWithAggregatesFilter<"Property"> | Date | string
+    photoUrls?: StringNullableListFilter<"Property">
+    listedAt?: DateTimeWithAggregatesFilter<"Property"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Property"> | Date | string
     averageRating?: FloatNullableWithAggregatesFilter<"Property"> | number | null
     numberOfReviews?: IntNullableWithAggregatesFilter<"Property"> | number | null
+    status?: EnumListingStatusWithAggregatesFilter<"Property"> | $Enums.ListingStatus
     locationId?: IntWithAggregatesFilter<"Property"> | number
     managerCognitoId?: StringWithAggregatesFilter<"Property"> | string
   }
@@ -12113,23 +12487,33 @@ export namespace Prisma {
   }
 
   export type PropertyCreateInput = {
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -12140,23 +12524,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedCreateInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
     managerCognitoId: string
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
@@ -12166,23 +12560,33 @@ export namespace Prisma {
   }
 
   export type PropertyUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -12193,23 +12597,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
@@ -12220,66 +12634,96 @@ export namespace Prisma {
 
   export type PropertyCreateManyInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
     managerCognitoId: string
   }
 
   export type PropertyUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
   }
 
   export type PropertyUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
   }
@@ -12451,8 +12895,8 @@ export namespace Prisma {
   }
 
   export type ApplicationCreateInput = {
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     name: string
     email: string
     phoneNumber: string
@@ -12464,8 +12908,8 @@ export namespace Prisma {
 
   export type ApplicationUncheckedCreateInput = {
     id?: number
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     propertyId: number
     tenantCognitoId: string
     name: string
@@ -12502,8 +12946,8 @@ export namespace Prisma {
 
   export type ApplicationCreateManyInput = {
     id?: number
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     propertyId: number
     tenantCognitoId: string
     name: string
@@ -12773,6 +13217,20 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type EnumPropertyCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryFilter<$PrismaModel> | $Enums.PropertyCategory
+  }
+
+  export type EnumPropertyTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPropertyTypeNullableFilter<$PrismaModel> | $Enums.PropertyType | null
+  }
+
   export type FloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -12784,51 +13242,18 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type StringNullableListFilter<$PrismaModel = never> = {
-    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    has?: string | StringFieldRefInput<$PrismaModel> | null
-    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
-    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
+  export type EnumPriceUnitFilter<$PrismaModel = never> = {
+    equals?: $Enums.PriceUnit | EnumPriceUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriceUnitFilter<$PrismaModel> | $Enums.PriceUnit
   }
 
-  export type EnumAmenityNullableListFilter<$PrismaModel = never> = {
-    equals?: $Enums.Amenity[] | ListEnumAmenityFieldRefInput<$PrismaModel> | null
-    has?: $Enums.Amenity | EnumAmenityFieldRefInput<$PrismaModel> | null
-    hasEvery?: $Enums.Amenity[] | ListEnumAmenityFieldRefInput<$PrismaModel>
-    hasSome?: $Enums.Amenity[] | ListEnumAmenityFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
-  export type EnumHighlightNullableListFilter<$PrismaModel = never> = {
-    equals?: $Enums.Highlight[] | ListEnumHighlightFieldRefInput<$PrismaModel> | null
-    has?: $Enums.Highlight | EnumHighlightFieldRefInput<$PrismaModel> | null
-    hasEvery?: $Enums.Highlight[] | ListEnumHighlightFieldRefInput<$PrismaModel>
-    hasSome?: $Enums.Highlight[] | ListEnumHighlightFieldRefInput<$PrismaModel>
-    isEmpty?: boolean
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type EnumPropertyTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPropertyTypeFilter<$PrismaModel> | $Enums.PropertyType
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type EnumPaymentPlanNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentPlan | EnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentPlanNullableFilter<$PrismaModel> | $Enums.PaymentPlan | null
   }
 
   export type FloatNullableFilter<$PrismaModel = never> = {
@@ -12842,6 +13267,13 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumSizeUnitNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSizeUnitNullableFilter<$PrismaModel> | $Enums.SizeUnit | null
+  }
+
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -12851,6 +13283,53 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumHighlightNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.Highlight[] | ListEnumHighlightFieldRefInput<$PrismaModel> | null
+    has?: $Enums.Highlight | EnumHighlightFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.Highlight[] | ListEnumHighlightFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.Highlight[] | ListEnumHighlightFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type EnumInfrastructureNullableListFilter<$PrismaModel = never> = {
+    equals?: $Enums.Infrastructure[] | ListEnumInfrastructureFieldRefInput<$PrismaModel> | null
+    has?: $Enums.Infrastructure | EnumInfrastructureFieldRefInput<$PrismaModel> | null
+    hasEvery?: $Enums.Infrastructure[] | ListEnumInfrastructureFieldRefInput<$PrismaModel>
+    hasSome?: $Enums.Infrastructure[] | ListEnumInfrastructureFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type EnumListingStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ListingStatus | EnumListingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumListingStatusFilter<$PrismaModel> | $Enums.ListingStatus
   }
 
   export type LocationScalarRelationFilter = {
@@ -12900,29 +13379,41 @@ export namespace Prisma {
 
   export type PropertyCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
+    category?: SortOrder
+    propertyType?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    paymentPlan?: SortOrder
+    size?: SortOrder
+    sizeUnit?: SortOrder
     pricePerMonth?: SortOrder
     securityDeposit?: SortOrder
     applicationFee?: SortOrder
-    photoUrls?: SortOrder
-    amenities?: SortOrder
-    highlights?: SortOrder
-    isPetsAllowed?: SortOrder
-    isParkingIncluded?: SortOrder
     beds?: SortOrder
     baths?: SortOrder
     squareFeet?: SortOrder
-    propertyType?: SortOrder
-    postedDate?: SortOrder
+    highlights?: SortOrder
+    infrastructure?: SortOrder
+    isForSale?: SortOrder
+    isForRent?: SortOrder
+    isPetsAllowed?: SortOrder
+    isParkingIncluded?: SortOrder
+    photoUrls?: SortOrder
+    listedAt?: SortOrder
+    updatedAt?: SortOrder
     averageRating?: SortOrder
     numberOfReviews?: SortOrder
+    status?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
   }
 
   export type PropertyAvgOrderByAggregateInput = {
     id?: SortOrder
+    price?: SortOrder
+    size?: SortOrder
     pricePerMonth?: SortOrder
     securityDeposit?: SortOrder
     applicationFee?: SortOrder
@@ -12936,46 +13427,68 @@ export namespace Prisma {
 
   export type PropertyMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
+    category?: SortOrder
+    propertyType?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    paymentPlan?: SortOrder
+    size?: SortOrder
+    sizeUnit?: SortOrder
     pricePerMonth?: SortOrder
     securityDeposit?: SortOrder
     applicationFee?: SortOrder
-    isPetsAllowed?: SortOrder
-    isParkingIncluded?: SortOrder
     beds?: SortOrder
     baths?: SortOrder
     squareFeet?: SortOrder
-    propertyType?: SortOrder
-    postedDate?: SortOrder
+    isForSale?: SortOrder
+    isForRent?: SortOrder
+    isPetsAllowed?: SortOrder
+    isParkingIncluded?: SortOrder
+    listedAt?: SortOrder
+    updatedAt?: SortOrder
     averageRating?: SortOrder
     numberOfReviews?: SortOrder
+    status?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
   }
 
   export type PropertyMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
+    category?: SortOrder
+    propertyType?: SortOrder
+    price?: SortOrder
+    priceUnit?: SortOrder
+    paymentPlan?: SortOrder
+    size?: SortOrder
+    sizeUnit?: SortOrder
     pricePerMonth?: SortOrder
     securityDeposit?: SortOrder
     applicationFee?: SortOrder
-    isPetsAllowed?: SortOrder
-    isParkingIncluded?: SortOrder
     beds?: SortOrder
     baths?: SortOrder
     squareFeet?: SortOrder
-    propertyType?: SortOrder
-    postedDate?: SortOrder
+    isForSale?: SortOrder
+    isForRent?: SortOrder
+    isPetsAllowed?: SortOrder
+    isParkingIncluded?: SortOrder
+    listedAt?: SortOrder
+    updatedAt?: SortOrder
     averageRating?: SortOrder
     numberOfReviews?: SortOrder
+    status?: SortOrder
     locationId?: SortOrder
     managerCognitoId?: SortOrder
   }
 
   export type PropertySumOrderByAggregateInput = {
     id?: SortOrder
+    price?: SortOrder
+    size?: SortOrder
     pricePerMonth?: SortOrder
     securityDeposit?: SortOrder
     applicationFee?: SortOrder
@@ -13021,6 +13534,26 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type EnumPropertyCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PropertyCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPropertyCategoryFilter<$PrismaModel>
+  }
+
+  export type EnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PropertyType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+  }
+
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -13037,36 +13570,24 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type EnumPriceUnitWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PriceUnit | EnumPriceUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriceUnitWithAggregatesFilter<$PrismaModel> | $Enums.PriceUnit
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _min?: NestedEnumPriceUnitFilter<$PrismaModel>
+    _max?: NestedEnumPriceUnitFilter<$PrismaModel>
   }
 
-  export type EnumPropertyTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPropertyTypeWithAggregatesFilter<$PrismaModel> | $Enums.PropertyType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPropertyTypeFilter<$PrismaModel>
-    _max?: NestedEnumPropertyTypeFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type EnumPaymentPlanNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentPlan | EnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentPlanNullableWithAggregatesFilter<$PrismaModel> | $Enums.PaymentPlan | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPaymentPlanNullableFilter<$PrismaModel>
+    _max?: NestedEnumPaymentPlanNullableFilter<$PrismaModel>
   }
 
   export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -13085,6 +13606,16 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type EnumSizeUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSizeUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.SizeUnit | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+    _max?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+  }
+
   export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -13099,6 +13630,38 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type EnumListingStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ListingStatus | EnumListingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumListingStatusWithAggregatesFilter<$PrismaModel> | $Enums.ListingStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumListingStatusFilter<$PrismaModel>
+    _max?: NestedEnumListingStatusFilter<$PrismaModel>
   }
 
   export type PropertyListRelationFilter = {
@@ -13507,16 +14070,16 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type PropertyCreatephotoUrlsInput = {
-    set: string[]
-  }
-
-  export type PropertyCreateamenitiesInput = {
-    set: $Enums.Amenity[]
-  }
-
   export type PropertyCreatehighlightsInput = {
     set: $Enums.Highlight[]
+  }
+
+  export type PropertyCreateinfrastructureInput = {
+    set: $Enums.Infrastructure[]
+  }
+
+  export type PropertyCreatephotoUrlsInput = {
+    set: string[]
   }
 
   export type LocationCreateNestedOneWithoutPropertiesInput = {
@@ -13585,6 +14148,14 @@ export namespace Prisma {
     set?: string
   }
 
+  export type EnumPropertyCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.PropertyCategory
+  }
+
+  export type NullableEnumPropertyTypeFieldUpdateOperationsInput = {
+    set?: $Enums.PropertyType | null
+  }
+
   export type FloatFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -13593,39 +14164,12 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type PropertyUpdatephotoUrlsInput = {
-    set?: string[]
-    push?: string | string[]
+  export type EnumPriceUnitFieldUpdateOperationsInput = {
+    set?: $Enums.PriceUnit
   }
 
-  export type PropertyUpdateamenitiesInput = {
-    set?: $Enums.Amenity[]
-    push?: $Enums.Amenity | $Enums.Amenity[]
-  }
-
-  export type PropertyUpdatehighlightsInput = {
-    set?: $Enums.Highlight[]
-    push?: $Enums.Highlight | $Enums.Highlight[]
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
-  export type EnumPropertyTypeFieldUpdateOperationsInput = {
-    set?: $Enums.PropertyType
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
+  export type NullableEnumPaymentPlanFieldUpdateOperationsInput = {
+    set?: $Enums.PaymentPlan | null
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -13636,12 +14180,43 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type NullableEnumSizeUnitFieldUpdateOperationsInput = {
+    set?: $Enums.SizeUnit | null
+  }
+
   export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type PropertyUpdatehighlightsInput = {
+    set?: $Enums.Highlight[]
+    push?: $Enums.Highlight | $Enums.Highlight[]
+  }
+
+  export type PropertyUpdateinfrastructureInput = {
+    set?: $Enums.Infrastructure[]
+    push?: $Enums.Infrastructure | $Enums.Infrastructure[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type PropertyUpdatephotoUrlsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type EnumListingStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ListingStatus
   }
 
   export type LocationUpdateOneRequiredWithoutPropertiesNestedInput = {
@@ -13709,6 +14284,14 @@ export namespace Prisma {
     update?: TenantUpdateWithWhereUniqueWithoutPropertiesInput | TenantUpdateWithWhereUniqueWithoutPropertiesInput[]
     updateMany?: TenantUpdateManyWithWhereWithoutPropertiesInput | TenantUpdateManyWithWhereWithoutPropertiesInput[]
     deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type LeaseUncheckedUpdateManyWithoutPropertyNestedInput = {
@@ -14250,6 +14833,20 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type NestedEnumPropertyCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryFilter<$PrismaModel> | $Enums.PropertyCategory
+  }
+
+  export type NestedEnumPropertyTypeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPropertyTypeNullableFilter<$PrismaModel> | $Enums.PropertyType | null
+  }
+
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -14261,27 +14858,18 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
+  export type NestedEnumPriceUnitFilter<$PrismaModel = never> = {
+    equals?: $Enums.PriceUnit | EnumPriceUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriceUnitFilter<$PrismaModel> | $Enums.PriceUnit
   }
 
-  export type NestedEnumPropertyTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPropertyTypeFilter<$PrismaModel> | $Enums.PropertyType
-  }
-
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  export type NestedEnumPaymentPlanNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentPlan | EnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentPlanNullableFilter<$PrismaModel> | $Enums.PaymentPlan | null
   }
 
   export type NestedFloatNullableFilter<$PrismaModel = never> = {
@@ -14295,6 +14883,13 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedEnumSizeUnitNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSizeUnitNullableFilter<$PrismaModel> | $Enums.SizeUnit | null
+  }
+
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14304,6 +14899,29 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedEnumListingStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ListingStatus | EnumListingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumListingStatusFilter<$PrismaModel> | $Enums.ListingStatus
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -14339,6 +14957,26 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedEnumPropertyCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyCategory | EnumPropertyCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PropertyCategory[] | ListEnumPropertyCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPropertyCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PropertyCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPropertyCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPropertyCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPropertyTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.PropertyType | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+    _max?: NestedEnumPropertyTypeNullableFilter<$PrismaModel>
+  }
+
   export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
     in?: number[] | ListFloatFieldRefInput<$PrismaModel>
@@ -14355,36 +14993,24 @@ export namespace Prisma {
     _max?: NestedFloatFilter<$PrismaModel>
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedEnumPriceUnitWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PriceUnit | EnumPriceUnitFieldRefInput<$PrismaModel>
+    in?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PriceUnit[] | ListEnumPriceUnitFieldRefInput<$PrismaModel>
+    not?: NestedEnumPriceUnitWithAggregatesFilter<$PrismaModel> | $Enums.PriceUnit
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+    _min?: NestedEnumPriceUnitFilter<$PrismaModel>
+    _max?: NestedEnumPriceUnitFilter<$PrismaModel>
   }
 
-  export type NestedEnumPropertyTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.PropertyType | EnumPropertyTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.PropertyType[] | ListEnumPropertyTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumPropertyTypeWithAggregatesFilter<$PrismaModel> | $Enums.PropertyType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumPropertyTypeFilter<$PrismaModel>
-    _max?: NestedEnumPropertyTypeFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
+  export type NestedEnumPaymentPlanNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PaymentPlan | EnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    in?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.PaymentPlan[] | ListEnumPaymentPlanFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumPaymentPlanNullableWithAggregatesFilter<$PrismaModel> | $Enums.PaymentPlan | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumPaymentPlanNullableFilter<$PrismaModel>
+    _max?: NestedEnumPaymentPlanNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -14403,6 +15029,16 @@ export namespace Prisma {
     _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumSizeUnitNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.SizeUnit | EnumSizeUnitFieldRefInput<$PrismaModel> | null
+    in?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.SizeUnit[] | ListEnumSizeUnitFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumSizeUnitNullableWithAggregatesFilter<$PrismaModel> | $Enums.SizeUnit | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+    _max?: NestedEnumSizeUnitNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -14417,6 +15053,38 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumListingStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ListingStatus | EnumListingStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ListingStatus[] | ListEnumListingStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumListingStatusWithAggregatesFilter<$PrismaModel> | $Enums.ListingStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumListingStatusFilter<$PrismaModel>
+    _max?: NestedEnumListingStatusFilter<$PrismaModel>
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -14536,8 +15204,8 @@ export namespace Prisma {
   }
 
   export type ApplicationCreateWithoutPropertyInput = {
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     name: string
     email: string
     phoneNumber: string
@@ -14548,8 +15216,8 @@ export namespace Prisma {
 
   export type ApplicationUncheckedCreateWithoutPropertyInput = {
     id?: number
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     tenantCognitoId: string
     name: string
     email: string
@@ -14777,23 +15445,33 @@ export namespace Prisma {
   }
 
   export type PropertyCreateWithoutManagerInput = {
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     location: LocationCreateNestedOneWithoutPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
@@ -14803,23 +15481,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedCreateWithoutManagerInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
@@ -14858,45 +15546,65 @@ export namespace Prisma {
     OR?: PropertyScalarWhereInput[]
     NOT?: PropertyScalarWhereInput | PropertyScalarWhereInput[]
     id?: IntFilter<"Property"> | number
-    name?: StringFilter<"Property"> | string
+    title?: StringFilter<"Property"> | string
     description?: StringFilter<"Property"> | string
-    pricePerMonth?: FloatFilter<"Property"> | number
-    securityDeposit?: FloatFilter<"Property"> | number
-    applicationFee?: FloatFilter<"Property"> | number
-    photoUrls?: StringNullableListFilter<"Property">
-    amenities?: EnumAmenityNullableListFilter<"Property">
+    category?: EnumPropertyCategoryFilter<"Property"> | $Enums.PropertyCategory
+    propertyType?: EnumPropertyTypeNullableFilter<"Property"> | $Enums.PropertyType | null
+    price?: FloatFilter<"Property"> | number
+    priceUnit?: EnumPriceUnitFilter<"Property"> | $Enums.PriceUnit
+    paymentPlan?: EnumPaymentPlanNullableFilter<"Property"> | $Enums.PaymentPlan | null
+    size?: FloatNullableFilter<"Property"> | number | null
+    sizeUnit?: EnumSizeUnitNullableFilter<"Property"> | $Enums.SizeUnit | null
+    pricePerMonth?: FloatNullableFilter<"Property"> | number | null
+    securityDeposit?: FloatNullableFilter<"Property"> | number | null
+    applicationFee?: FloatNullableFilter<"Property"> | number | null
+    beds?: IntNullableFilter<"Property"> | number | null
+    baths?: FloatNullableFilter<"Property"> | number | null
+    squareFeet?: IntNullableFilter<"Property"> | number | null
     highlights?: EnumHighlightNullableListFilter<"Property">
+    infrastructure?: EnumInfrastructureNullableListFilter<"Property">
+    isForSale?: BoolFilter<"Property"> | boolean
+    isForRent?: BoolFilter<"Property"> | boolean
     isPetsAllowed?: BoolFilter<"Property"> | boolean
     isParkingIncluded?: BoolFilter<"Property"> | boolean
-    beds?: IntFilter<"Property"> | number
-    baths?: FloatFilter<"Property"> | number
-    squareFeet?: IntFilter<"Property"> | number
-    propertyType?: EnumPropertyTypeFilter<"Property"> | $Enums.PropertyType
-    postedDate?: DateTimeFilter<"Property"> | Date | string
+    photoUrls?: StringNullableListFilter<"Property">
+    listedAt?: DateTimeFilter<"Property"> | Date | string
+    updatedAt?: DateTimeFilter<"Property"> | Date | string
     averageRating?: FloatNullableFilter<"Property"> | number | null
     numberOfReviews?: IntNullableFilter<"Property"> | number | null
+    status?: EnumListingStatusFilter<"Property"> | $Enums.ListingStatus
     locationId?: IntFilter<"Property"> | number
     managerCognitoId?: StringFilter<"Property"> | string
   }
 
   export type PropertyCreateWithoutTenantsInput = {
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -14906,23 +15614,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedCreateWithoutTenantsInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
     managerCognitoId: string
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
@@ -14936,23 +15654,33 @@ export namespace Prisma {
   }
 
   export type PropertyCreateWithoutFavoritedByInput = {
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -14962,23 +15690,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedCreateWithoutFavoritedByInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
     managerCognitoId: string
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
@@ -14992,8 +15730,8 @@ export namespace Prisma {
   }
 
   export type ApplicationCreateWithoutTenantInput = {
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     name: string
     email: string
     phoneNumber: string
@@ -15004,8 +15742,8 @@ export namespace Prisma {
 
   export type ApplicationUncheckedCreateWithoutTenantInput = {
     id?: number
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     propertyId: number
     name: string
     email: string
@@ -15179,23 +15917,33 @@ export namespace Prisma {
   }
 
   export type PropertyCreateWithoutLocationInput = {
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
@@ -15205,23 +15953,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedCreateWithoutLocationInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     managerCognitoId: string
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
@@ -15256,23 +16014,33 @@ export namespace Prisma {
   }
 
   export type PropertyCreateWithoutApplicationsInput = {
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     leases?: LeaseCreateNestedManyWithoutPropertyInput
@@ -15282,23 +16050,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedCreateWithoutApplicationsInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
     managerCognitoId: string
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
@@ -15377,23 +16155,33 @@ export namespace Prisma {
   }
 
   export type PropertyUpdateWithoutApplicationsInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -15403,23 +16191,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateWithoutApplicationsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
@@ -15494,23 +16292,33 @@ export namespace Prisma {
   }
 
   export type PropertyCreateWithoutLeasesInput = {
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     location: LocationCreateNestedOneWithoutPropertiesInput
     manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
@@ -15520,23 +16328,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedCreateWithoutLeasesInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
     managerCognitoId: string
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
@@ -15578,8 +16396,8 @@ export namespace Prisma {
   }
 
   export type ApplicationCreateWithoutLeaseInput = {
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     name: string
     email: string
     phoneNumber: string
@@ -15590,8 +16408,8 @@ export namespace Prisma {
 
   export type ApplicationUncheckedCreateWithoutLeaseInput = {
     id?: number
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     propertyId: number
     tenantCognitoId: string
     name: string
@@ -15644,23 +16462,33 @@ export namespace Prisma {
   }
 
   export type PropertyUpdateWithoutLeasesInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
@@ -15670,23 +16498,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateWithoutLeasesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
@@ -15922,8 +16760,8 @@ export namespace Prisma {
 
   export type ApplicationCreateManyPropertyInput = {
     id?: number
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     tenantCognitoId: string
     name: string
     email: string
@@ -16061,44 +16899,64 @@ export namespace Prisma {
 
   export type PropertyCreateManyManagerInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     locationId: number
   }
 
   export type PropertyUpdateWithoutManagerInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
@@ -16108,23 +16966,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateWithoutManagerInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
@@ -16134,30 +17002,40 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateManyWithoutManagerInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
   }
 
   export type ApplicationCreateManyTenantInput = {
     id?: number
-    applicationDate: Date | string
-    status: $Enums.ApplicationStatus
+    applicationDate?: Date | string
+    status?: $Enums.ApplicationStatus
     propertyId: number
     name: string
     email: string
@@ -16186,23 +17064,33 @@ export namespace Prisma {
   }
 
   export type PropertyUpdateWithoutTenantsInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -16212,23 +17100,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateWithoutTenantsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
@@ -16238,45 +17136,65 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateManyWithoutTenantsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
   }
 
   export type PropertyUpdateWithoutFavoritedByInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
@@ -16286,23 +17204,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateWithoutFavoritedByInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
@@ -16312,23 +17240,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateManyWithoutFavoritedByInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     locationId?: IntFieldUpdateOperationsInput | number
     managerCognitoId?: StringFieldUpdateOperationsInput | string
   }
@@ -16428,23 +17366,33 @@ export namespace Prisma {
   }
 
   export type PropertyUpdateWithoutLocationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
@@ -16454,23 +17402,33 @@ export namespace Prisma {
 
   export type PropertyUncheckedUpdateWithoutLocationInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     managerCognitoId?: StringFieldUpdateOperationsInput | string
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
@@ -16480,45 +17438,65 @@ export namespace Prisma {
 
   export type PropertyCreateManyLocationInput = {
     id?: number
-    name: string
+    title?: string
     description: string
-    pricePerMonth: number
-    securityDeposit: number
-    applicationFee: number
-    photoUrls?: PropertyCreatephotoUrlsInput | string[]
-    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    category?: $Enums.PropertyCategory
+    propertyType?: $Enums.PropertyType | null
+    price?: number
+    priceUnit?: $Enums.PriceUnit
+    paymentPlan?: $Enums.PaymentPlan | null
+    size?: number | null
+    sizeUnit?: $Enums.SizeUnit | null
+    pricePerMonth?: number | null
+    securityDeposit?: number | null
+    applicationFee?: number | null
+    beds?: number | null
+    baths?: number | null
+    squareFeet?: number | null
     highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyCreateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: boolean
+    isForRent?: boolean
     isPetsAllowed?: boolean
     isParkingIncluded?: boolean
-    beds: number
-    baths: number
-    squareFeet: number
-    propertyType: $Enums.PropertyType
-    postedDate?: Date | string
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    listedAt?: Date | string
+    updatedAt?: Date | string
     averageRating?: number | null
     numberOfReviews?: number | null
+    status?: $Enums.ListingStatus
     managerCognitoId: string
   }
 
   export type PropertyUncheckedUpdateManyWithoutLocationInput = {
     id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    pricePerMonth?: FloatFieldUpdateOperationsInput | number
-    securityDeposit?: FloatFieldUpdateOperationsInput | number
-    applicationFee?: FloatFieldUpdateOperationsInput | number
-    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
-    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    category?: EnumPropertyCategoryFieldUpdateOperationsInput | $Enums.PropertyCategory
+    propertyType?: NullableEnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType | null
+    price?: FloatFieldUpdateOperationsInput | number
+    priceUnit?: EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+    paymentPlan?: NullableEnumPaymentPlanFieldUpdateOperationsInput | $Enums.PaymentPlan | null
+    size?: NullableFloatFieldUpdateOperationsInput | number | null
+    sizeUnit?: NullableEnumSizeUnitFieldUpdateOperationsInput | $Enums.SizeUnit | null
+    pricePerMonth?: NullableFloatFieldUpdateOperationsInput | number | null
+    securityDeposit?: NullableFloatFieldUpdateOperationsInput | number | null
+    applicationFee?: NullableFloatFieldUpdateOperationsInput | number | null
+    beds?: NullableIntFieldUpdateOperationsInput | number | null
+    baths?: NullableFloatFieldUpdateOperationsInput | number | null
+    squareFeet?: NullableIntFieldUpdateOperationsInput | number | null
     highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    infrastructure?: PropertyUpdateinfrastructureInput | $Enums.Infrastructure[]
+    isForSale?: BoolFieldUpdateOperationsInput | boolean
+    isForRent?: BoolFieldUpdateOperationsInput | boolean
     isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
     isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
-    beds?: IntFieldUpdateOperationsInput | number
-    baths?: FloatFieldUpdateOperationsInput | number
-    squareFeet?: IntFieldUpdateOperationsInput | number
-    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
-    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    listedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
     numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    status?: EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
     managerCognitoId?: StringFieldUpdateOperationsInput | string
   }
 
